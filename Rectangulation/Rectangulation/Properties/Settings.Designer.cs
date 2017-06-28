@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rektangulation.Properties
+namespace Rectangulation.Properties
 {
 
 

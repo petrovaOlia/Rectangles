@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Rektangulation
+namespace Rectangulation
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml
