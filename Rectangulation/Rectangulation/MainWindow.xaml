@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectangulation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -41,6 +41,22 @@
             <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать"/>
             <Button Grid.Row="2" Margin="5" FontSize="15" Content="Очистить"/>
         </Grid>
-        <Canvas Grid.Column="1" Grid.RowSpan="3"/>
+        <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="3" 
+                 PreviewMouseLeftButtonDown="Canvas_MouseLeftDown" Background="White" 
+                 PreviewMouseRightButtonDown="mainCanvas_PreviewMouseRightButtonDown">
+            <ItemsControl ItemsSource="{Binding Shapes}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding Geometry}" Fill="{Binding Fill}"
+                        Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Canvas>
     </Grid>
 </Window>

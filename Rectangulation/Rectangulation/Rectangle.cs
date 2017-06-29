@@ -1,77 +1,46 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Rectangulation
 {
-    class Rectangle : INotifyPropertyChanged
+    public class Rectangle : BaseShape
     {
-        private Point coord; // Координата левого правого угла
-        private int width; 
-        private int height;
-        private bool selected;
-        private int id; // Номер в списке
-        static int lastID = 1; // Последний номер в списоке 
+        private double _x; // Координата левого правого угла
+        private double _y;
+        private int _width; 
+        private int _height;
+        private bool _selected;
+        private int _id; // Номер в списке
+        static int _lastID = 1; // Последний номер в списоке 
 
-        public Rectangle(Point coord)
+        public Rectangle(double x, double y, int width, int height)
         {
-            id = lastID++;
+            _x = x;
+            _y = y;
+            _width = width;
+            _height = height;
+            _id = _lastID++;
+            Geometry = new RectangleGeometry(new Rect(x, y, width, height));
+            Fill = Brushes.Black;
+            Stroke = Brushes.Black;
+            StrokeThickness = 2;
         }
-        public Point Coord
-        {
-            get { return coord; }
-            set
-            {
-                coord = value;
-                OnPropertyChanged("Coord");
-            }
-        }
-        public int Height
-        {
-            get { return height; }
-            set
-            {
-                height = value;
-                OnPropertyChanged("Height");
-            }
-        }
-        public int Width
-        {
-            get { return width; }
-            set
-            {
-                width = value;
-                OnPropertyChanged("Width");
-            }
-        }
+        
         public bool Selected 
         {
-            get { return selected; }
+            get { return _selected; }
             set
             {
-                selected = value;
-                OnPropertyChanged("Selected");
+                _selected = value;
             }
         }
 
         public int Id
         {
-            get { return id; }
+            get { return _id; }
         }
-
-        public void Draw()
-        {
-
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
-        }
+        
     }
 }

@@ -25,5 +25,18 @@ namespace Rectangulation
             InitializeComponent();
             DataContext = new ViewModel();
         }
+
+        private void Canvas_MouseLeftDown(object sender, MouseButtonEventArgs e)
+        {
+            Point p = e.GetPosition(mainCanvas);
+            (DataContext as ViewModel).AddPolygon(p.X, p.Y);
+        }
+        
+
+        private void mainCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Point p = e.GetPosition(mainCanvas);
+            (DataContext as ViewModel).FinalizePolygon();
+        }
     }
 }

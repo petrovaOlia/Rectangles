@@ -55,8 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseShape.cs" />
     <Compile Include="Polygon.cs" />
+    <Compile Include="PolygonVM.cs" />
     <Compile Include="Rectangle.cs" />
+    <Compile Include="RectangleVM.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
