@@ -38,8 +38,8 @@
                 <TextBlock FontSize="15" Text="H = "/>
                 <TextBox Height ="20" Width="30" FontSize ="20"/>
             </StackPanel>
-            <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать"/>
-            <Button Grid.Row="2" Margin="5" FontSize="15" Content="Очистить"/>
+            <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать" Click="RectangulationButton_Click"/>
+            <Button Grid.Row="2" Margin="5" FontSize="15" Content="Очистить" Click="ClearButton_Click"/>
         </Grid>
         <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="3" 
                  PreviewMouseLeftButtonDown="Canvas_MouseLeftDown" Background="White" 

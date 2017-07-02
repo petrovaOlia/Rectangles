@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rectangulation
 {
-    class PolygonVM : ViewModel
+    class PolygonVM : MainWindowVM
     {
        // public ObservableCollection<Polygon> polygons { get; set; }
     }

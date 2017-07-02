@@ -23,20 +23,29 @@ namespace Rectangulation
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            DataContext = new MainWindowVM();
         }
 
         private void Canvas_MouseLeftDown(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(mainCanvas);
-            (DataContext as ViewModel).AddPolygon(p.X, p.Y);
+            (DataContext as MainWindowVM).AddPointToPolygon(p.X, p.Y);
         }
-        
 
         private void mainCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(mainCanvas);
-            (DataContext as ViewModel).FinalizePolygon();
+            (DataContext as MainWindowVM).ClosePolygon();
+        }
+        
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as MainWindowVM).ClearContents();
+        }
+
+        private void RectangulationButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

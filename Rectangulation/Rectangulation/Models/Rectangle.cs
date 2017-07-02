@@ -7,13 +7,25 @@ namespace Rectangulation
 {
     public class Rectangle : BaseShape
     {
-        private double _x; // Координата левого правого угла
+        /// <summary>
+        /// Координата X левого правого угла
+        /// </summary>
+        private double _x; 
+        /// <summary>
+        ///  Координата Y левого правого угла
+        /// </summary>
         private double _y;
         private int _width; 
         private int _height;
         private bool _selected;
-        private int _id; // Номер в списке
-        static int _lastID = 1; // Последний номер в списоке 
+        /// <summary>
+        /// Номер в списке
+        /// </summary>
+        private int _id;
+        /// <summary>
+        /// Последний номер в списоке
+        /// </summary>
+        static int _lastID = 1;
 
         public Rectangle(double x, double y, int width, int height)
         {
@@ -30,7 +42,11 @@ namespace Rectangulation
         
         public bool Selected 
         {
-            get { return _selected; }
+            get
+            {
+                return _selected;
+            }
+
             set
             {
                 _selected = value;

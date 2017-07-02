@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Rectangulation
 {
-    class RectangleVM : ViewModel
+    class RectangleVM : MainWindowVM
     {
+
     }
 }

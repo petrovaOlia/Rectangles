@@ -47,7 +47,7 @@ namespace Rectangulation
             }
         }
 
-        public void Finalize()
+        public void Close()
         {
             if (Geometry != null)
             {

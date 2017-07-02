@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace Rectangulation
 {
-    class ViewModel : INotifyPropertyChanged
+    class MainWindowVM : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +32,7 @@ namespace Rectangulation
             OnPropertyChanged();
         }
 
-        public void AddPolygon (double x, double y)
+        public void AddPointToPolygon (double x, double y)
         {
             if (_currentPolygon == null)
             {
@@ -45,15 +45,24 @@ namespace Rectangulation
             OnPropertyChanged();
         }
 
-        public void FinalizePolygon ()
+        public void ClosePolygon ()
         {
             if (_currentPolygon != null)
             {
-                _currentPolygon.Finalize();
+                _currentPolygon.Close();
                 _currentPolygon = null;
                 OnPropertyChanged();
             }
         }
+
+
+
+        public void ClearContents()
+        {
+            _shapes.Clear();
+            OnPropertyChanged();
+        }
+
 
         public void OnPropertyChanged()
         {
