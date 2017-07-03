@@ -9,10 +9,25 @@ namespace Rectangulation
 {
     public class BaseShape
     {
-        public Geometry Geometry { get; set; } // геометрия фигуры
-        public Brush Fill { get; set; } // кисть заливки
-        public Brush Stroke { get; set; } // кисть контура
-        public double StrokeThickness { get; set; } // толщина линии
+        /// <summary>
+        /// Свойство геометрия фигуры
+        /// </summary>
+        public Geometry Geometry { get; set; }
+
+        /// <summary>
+        /// Свойство кисть заливки
+        /// </summary>
+        public Brush Fill { get; set; }
+
+        /// <summary>
+        /// Свойство кисть контура
+        /// </summary>
+        public Brush Stroke { get; set; }
+
+        /// <summary>
+        /// Свойство толщина линии
+        /// </summary>
+        public double StrokeThickness { get; set; } 
     }
 }
 

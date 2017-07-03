@@ -9,11 +9,24 @@ namespace Rectangulation
 {
     class MainWindowVM : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Событие изменения коллекции фигур
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //public ObservableCollection<Polygon> polygons { get; set; }
+        /// <summary>
+        /// Коллекция фигур
+        /// </summary>
         private ObservableCollection<BaseShape> _shapes = new ObservableCollection<BaseShape>();
+
+        /// <summary>
+        /// Текущий полигон
+        /// </summary>
         private Polygon _currentPolygon = null;
+
+        /// <summary>
+        /// Свойство коллекция фигур
+        /// </summary>
         public ObservableCollection<BaseShape> Shapes
         {
             get
@@ -26,12 +39,25 @@ namespace Rectangulation
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Метод добавления квадрата в коллекцию _shapes
+        /// </summary>
+        /// <param name="x">Координата X левого правого угла прямоугольника</param>
+        /// <param name="y">Координата Y левого правого угла прямоугольника</param>
+        /// <param name="width">Ширина прямоугольника</param>
+        /// <param name="height">Высота прямоугольника</param>
         public void AddRectangle (double x, double y, int width, int height)
         {
             _shapes.Add(new Rectangle(x, y, width, height));
             OnPropertyChanged();
         }
 
+        /// <summary>
+        /// Метод добавления точки в полигон
+        /// </summary>
+        /// <param name="x">Координата X точки</param>
+        /// <param name="y">Координата Y точки</param>
         public void AddPointToPolygon (double x, double y)
         {
             if (_currentPolygon == null)
@@ -45,6 +71,9 @@ namespace Rectangulation
             OnPropertyChanged();
         }
 
+        /// <summary>
+        /// Метод замыкания полигона
+        /// </summary>
         public void ClosePolygon ()
         {
             if (_currentPolygon != null)
@@ -55,15 +84,18 @@ namespace Rectangulation
             }
         }
 
-
-
-        public void ClearContents()
+        /// <summary>
+        /// Удаление содержимого коллекции фигур
+        /// </summary>
+        public void ClearContent()
         {
             _shapes.Clear();
             OnPropertyChanged();
         }
 
-
+        /// <summary>
+        /// Метод, вызываемый при изменении коллекции фигур
+        /// </summary>
         public void OnPropertyChanged()
         {
             if (PropertyChanged != null)

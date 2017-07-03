@@ -7,13 +7,11 @@ namespace Rectangulation
 {
     public class Polygon : BaseShape
     {
-        //private ObservableCollection<Point> _points = new ObservableCollection<Point>();
-        //private ObservableCollection<Rectangle> _rectangles = new ObservableCollection<Rectangle>();
-
-
-        //public ObservableCollection<Point> Points { get; set; }
-        //public ObservableCollection<Rectangle> Rectangles { get; set; }
-
+        /// <summary>
+        /// Конструктор полигона
+        /// </summary>
+        /// <param name="x">Координата X стартовой точки</param>
+        /// <param name="y">Координата Y стартовой точки</param>
         public Polygon (double x, double y)
         {
             PathGeometry pathGeom = new PathGeometry();
@@ -29,6 +27,11 @@ namespace Rectangulation
             Geometry = pathGeom;
         }
 
+        /// <summary>
+        /// Метод добавления точки в полигон
+        /// </summary>
+        /// <param name="x">Координата X точки</param>
+        /// <param name="y">Координата Y точки</param>
         public void AddPoint (double x, double y)
         {
             if (Geometry != null)
@@ -47,6 +50,9 @@ namespace Rectangulation
             }
         }
 
+        /// <summary>
+        /// Метод заиыкания полигона
+        /// </summary>
         public void Close()
         {
             if (Geometry != null)

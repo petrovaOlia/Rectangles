@@ -40,7 +40,7 @@ namespace Rectangulation
         
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            (DataContext as MainWindowVM).ClearContents();
+            (DataContext as MainWindowVM).ClearContent();
         }
 
         private void RectangulationButton_Click(object sender, RoutedEventArgs e)

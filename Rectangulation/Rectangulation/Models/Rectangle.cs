@@ -8,25 +8,42 @@ namespace Rectangulation
     public class Rectangle : BaseShape
     {
         /// <summary>
-        /// Координата X левого правого угла
+        /// Координата X левого правого угла прямоугольника
         /// </summary>
-        private double _x; 
+        private double _x;
+
         /// <summary>
-        ///  Координата Y левого правого угла
+        ///  Координата Y левого правого угла прямоугольника
         /// </summary>
         private double _y;
-        private int _width; 
-        private int _height;
-        private bool _selected;
+
         /// <summary>
-        /// Номер в списке
+        /// Ширина прямоугольника
+        /// </summary>
+        private int _width;
+
+        /// <summary>
+        /// Высота прямоугольника
+        /// </summary>
+        private int _height;
+
+        /// <summary>
+        /// Номер в списке прямоугольника
         /// </summary>
         private int _id;
+
         /// <summary>
-        /// Последний номер в списоке
+        /// Последний номер в списоке прямоугольника
         /// </summary>
         static int _lastID = 1;
 
+        /// <summary>
+        /// Конструктор прямоугольника
+        /// </summary>
+        /// <param name="x">Координата X левого правого угла прямоугольника</param>
+        /// <param name="y">Координата Y левого правого угла прямоугольника</param>
+        /// <param name="width">Ширина прямоугольника</param>
+        /// <param name="height">Высота прямоугольника</param>
         public Rectangle(double x, double y, int width, int height)
         {
             _x = x;
@@ -40,19 +57,14 @@ namespace Rectangulation
             StrokeThickness = 2;
         }
         
-        public bool Selected 
-        {
-            get
-            {
-                return _selected;
-            }
+        /// <summary>
+        /// Свойство, использующиеся для выделения цветом прямоугольника
+        /// </summary>
+        public bool Selected { get; set; }
 
-            set
-            {
-                _selected = value;
-            }
-        }
-
+        /// <summary>
+        /// Свойство нумерации прямоугольника
+        /// </summary>
         public int Id
         {
             get { return _id; }
