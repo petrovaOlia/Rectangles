@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace Rectangulation
 {
-    public class BaseShape
+   
+    public abstract class BaseShapeVM
     {
         /// <summary>
         /// Свойство геометрия фигуры
@@ -27,7 +29,12 @@ namespace Rectangulation
         /// <summary>
         /// Свойство толщина линии
         /// </summary>
-        public double StrokeThickness { get; set; } 
+        public double StrokeThickness { get; set; }
+
+        /// <summary>
+        /// Свойство, использующиеся для выделения цветом прямоугольника
+        /// </summary>
+        public bool Selected { get; set; }
     }
 }
 

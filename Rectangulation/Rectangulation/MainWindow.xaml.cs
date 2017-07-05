@@ -29,13 +29,13 @@ namespace Rectangulation
         private void Canvas_MouseLeftDown(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(mainCanvas);
-            (DataContext as MainWindowVM).AddPointToPolygon(p.X, p.Y);
+            (DataContext as MainWindowVM).LeftClick(p.X, p.Y);
         }
 
         private void mainCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point p = e.GetPosition(mainCanvas);
-            (DataContext as MainWindowVM).ClosePolygon();
+            (DataContext as MainWindowVM).ReightClick();
         }
         
         private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -43,9 +43,9 @@ namespace Rectangulation
             (DataContext as MainWindowVM).ClearContent();
         }
 
-        private void RectangulationButton_Click(object sender, RoutedEventArgs e)
+        /*private void RectangulationButton_Click(object sender, RoutedEventArgs e)
         {
-
-        }
+            //(DataContext as MainWindowVM).ButtonRect();
+        }*/
     }
 }

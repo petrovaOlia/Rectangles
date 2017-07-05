@@ -55,7 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\BaseShape.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ViewModels\BaseShapeVM.cs" />
     <Compile Include="Models\Polygon.cs" />
     <Compile Include="ViewModels\PolygonVM.cs" />
     <Compile Include="Models\Rectangle.cs" />

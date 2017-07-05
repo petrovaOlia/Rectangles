@@ -32,13 +32,23 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <TextBlock FontSize="15" Text="W = "/>
-                <TextBox Height ="20" Width="30" FontSize ="20"/>
-                <TextBlock FontSize="15" Text="H = "/>
-                <TextBox Height ="20" Width="30" FontSize ="20"/>
-            </StackPanel>
-            <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать" Click="RectangulationButton_Click"/>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="36.667"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" 
+                           FontSize="15" Text="W = "/>
+                <TextBox Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left"
+                         Height ="20" Width="30" FontSize ="15"/>
+                <TextBlock Grid.Column="2"  VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" FontSize="15" Text="H = "/>
+                <TextBox Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Left"
+                         Height ="20" Width="30" FontSize ="15"/>
+            </Grid>
+            <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать" Command="{Binding AddRectangleCommand}"/>
             <Button Grid.Row="2" Margin="5" FontSize="15" Content="Очистить" Click="ClearButton_Click"/>
         </Grid>
         <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="3" 
@@ -52,7 +62,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Path Data="{Binding Geometry}" Fill="{Binding Fill}"
+                        <Path Data="{Binding Geometry}" Fill="{Binding Fill, UpdateSourceTrigger=PropertyChanged}"
                         Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

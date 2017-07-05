@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace Rectangulation
 {
-    public class Rectangle : BaseShape
+    public class Rectangle
     {
         /// <summary>
         /// Координата X левого правого угла прямоугольника
@@ -51,16 +51,7 @@ namespace Rectangulation
             _width = width;
             _height = height;
             _id = _lastID++;
-            Geometry = new RectangleGeometry(new Rect(x, y, width, height));
-            Fill = Brushes.Black;
-            Stroke = Brushes.Black;
-            StrokeThickness = 2;
         }
-        
-        /// <summary>
-        /// Свойство, использующиеся для выделения цветом прямоугольника
-        /// </summary>
-        public bool Selected { get; set; }
 
         /// <summary>
         /// Свойство нумерации прямоугольника
@@ -69,6 +60,5 @@ namespace Rectangulation
         {
             get { return _id; }
         }
-        
     }
 }
