@@ -116,13 +116,13 @@ namespace Rectangulation
             OnPropertyChanged();
         }
 
-        private DelegateCommand _AddRectangleCommand;
+        private RectangulationCommand _AddRectangleCommand;
 
-        public DelegateCommand AddRectangleCommand
+        public RectangulationCommand AddRectangleCommand
         {
-            get { return _AddRectangleCommand ?? (_AddRectangleCommand = new DelegateCommand(AddRectangleExecute)); }
+            get { return _AddRectangleCommand ?? (_AddRectangleCommand = new RectangulationCommand(_rectangles)); }
         }
-
+        /*
         private void AddRectangleExecute()
         {
             var x = 120;
@@ -132,7 +132,7 @@ namespace Rectangulation
                 AddRectangle(x += 15, y += 15);
             }
         }
-
+        */
         /// <summary>
         /// Метод, вызываемый при изменении коллекции фигур
         /// </summary>

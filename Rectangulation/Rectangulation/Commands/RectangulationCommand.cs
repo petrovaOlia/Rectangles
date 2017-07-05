@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,24 +8,29 @@ using System.Windows.Input;
 
 namespace Rectangulation
 {
-    class DelegateCommand : ICommand
+    class RectangulationCommand : ICommand
     {
-        private readonly Action _command;
+        private readonly ObservableCollection<RectangleVM> _rectCollection;
         private readonly Func<bool> _canExecute;
 
         public event EventHandler CanExecuteChanged;
 
-        public DelegateCommand(Action command, Func<bool> canExecute = null)
+        public RectangulationCommand( ObservableCollection<RectangleVM> rectCollection, Func<bool> canExecute = null)
         {
-            if (command == null)
-                throw new ArgumentNullException("command");
+            if (rectCollection == null)
+                throw new ArgumentNullException("rectCollection");
             _canExecute = canExecute;
-            _command = command;
+            _rectCollection = rectCollection;
         }
 
         public void Execute(object parameter)
         {
-            _command();
+            var x = 120;
+            var y = 120;
+            for (var i = 0; i < 5; i++)
+            {
+                _rectCollection.Add(new RectangleVM(x += 15, y += 15));
+            }
         }
 
         public bool CanExecute(object parameter)
