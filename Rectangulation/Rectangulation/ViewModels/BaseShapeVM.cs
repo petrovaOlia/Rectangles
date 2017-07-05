@@ -19,22 +19,19 @@ namespace Rectangulation
         /// <summary>
         /// Свойство кисть заливки
         /// </summary>
-        public Brush Fill { get; set; }
+        public abstract Brush Fill { get;  }
 
         /// <summary>
         /// Свойство кисть контура
         /// </summary>
-        public Brush Stroke { get; set; }
+        public abstract Brush Stroke { get; }
 
         /// <summary>
         /// Свойство толщина линии
         /// </summary>
-        public double StrokeThickness { get; set; }
+        public abstract double StrokeThickness { get; }
 
-        /// <summary>
-        /// Свойство, использующиеся для выделения цветом прямоугольника
-        /// </summary>
-        public bool Selected { get; set; }
+        
     }
 }
 

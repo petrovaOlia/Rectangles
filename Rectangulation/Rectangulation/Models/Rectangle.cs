@@ -37,6 +37,31 @@ namespace Rectangulation
         /// </summary>
         static int _lastID = 1;
 
+        private bool _selected;
+
+        /// <summary>
+        /// Свойство кисть заливки и контура
+        /// </summary>
+        public Brush Fill { get; set; }
+
+        /// <summary>
+        /// Свойство, использующиеся для выделения цветом прямоугольника
+        /// </summary>
+        public bool Selected
+        {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value;
+                Fill = _selected ? Brushes.Red : Brushes.Black;
+
+            }
+        }
+
+
         /// <summary>
         /// Конструктор прямоугольника
         /// </summary>
@@ -51,6 +76,7 @@ namespace Rectangulation
             _width = width;
             _height = height;
             _id = _lastID++;
+            Selected = false;
         }
 
         /// <summary>

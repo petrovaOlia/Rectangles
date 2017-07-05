@@ -10,6 +10,28 @@ namespace Rectangulation
     {
         List<Point> _points = new List<Point>();
 
+        /// <summary>
+        /// Свойство кисть заливки
+        /// </summary>
+        public Brush Fill { get; set; }
+
+        /// <summary>
+        /// Свойство кисть контура
+        /// </summary>
+        public Brush Stroke { get; set; }
+
+        /// <summary>
+        /// Свойство толщина линии
+        /// </summary>
+        public double StrokeThickness { get; set; }
+
+        public Polygon()
+        {
+            Fill = Brushes.Transparent;
+            Stroke = Brushes.Blue;
+            StrokeThickness = 2;
+        }
+
         ///// <summary>
         ///// Метод добавления точки в полигон
         ///// </summary>

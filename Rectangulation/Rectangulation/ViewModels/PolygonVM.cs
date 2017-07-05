@@ -14,6 +14,21 @@ namespace Rectangulation
         private Polygon _polygon = new Polygon();
 
         /// <summary>
+        /// Свойство кисть заливки
+        /// </summary>
+        public override Brush Fill => _polygon.Fill;
+
+        /// <summary>
+        /// Свойство кисть контура
+        /// </summary>
+        public override Brush Stroke => _polygon.Stroke;
+
+        /// <summary>
+        /// Свойство толщина линии
+        /// </summary>
+        public override double StrokeThickness => _polygon.StrokeThickness;
+
+        /// <summary>
         /// Конструктор полигона
         /// </summary>
         /// <param name="x">Координата X стартовой точки</param>
@@ -29,9 +44,6 @@ namespace Rectangulation
             figure.StartPoint = new Point(x, y);
             figure.Segments.Add(segment);
             pathGeom.Figures.Add(figure);
-            Fill = Brushes.Transparent;
-            Stroke = Brushes.Blue;
-            StrokeThickness = 2;
             Geometry = pathGeom;
         }
 

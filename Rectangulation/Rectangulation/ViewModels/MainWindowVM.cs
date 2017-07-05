@@ -29,7 +29,7 @@ namespace Rectangulation
         /// <summary>
         /// Объединенная коллекция фигур
         /// </summary>
-        private CompositeCollection _shapes = new CompositeCollection();
+        //private CompositeCollection Shapes = new CompositeCollection();
 
         /// <summary>
         /// Текущий полигон
@@ -38,25 +38,21 @@ namespace Rectangulation
 
         public MainWindowVM()
         {
+            Shapes = new CompositeCollection();
+
             CollectionContainer polygonContainer = new CollectionContainer();
             polygonContainer.Collection = _polygons;
-            _shapes.Add(polygonContainer);
+            Shapes.Add(polygonContainer);
 
             CollectionContainer rectangleContainer = new CollectionContainer();
             rectangleContainer.Collection = _rectangles;
-            _shapes.Add(rectangleContainer);
+            Shapes.Add(rectangleContainer);
         }
 
         /// <summary>
         /// Свойство коллекция фигур
         /// </summary>
-        public CompositeCollection Shapes
-        {
-            get
-            {
-                return _shapes;
-            }
-        }
+        public CompositeCollection Shapes { get; private set; }
 
         /// <summary>
         /// Метод добавления квадрата в коллекцию _shapes
