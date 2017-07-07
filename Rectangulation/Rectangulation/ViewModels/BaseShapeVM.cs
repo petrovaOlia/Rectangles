@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -9,7 +11,7 @@ using System.Windows.Media;
 namespace Rectangulation
 {
    
-    public abstract class BaseShapeVM
+    public abstract class BaseShapeVM 
     {
         /// <summary>
         /// Свойство геометрия фигуры
@@ -30,8 +32,7 @@ namespace Rectangulation
         /// Свойство толщина линии
         /// </summary>
         public abstract double StrokeThickness { get; }
-
-        
     }
+
 }
 

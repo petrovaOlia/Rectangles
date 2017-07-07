@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AddPolygonCommand.cs" />
+    <Compile Include="Commands\ClearCommand.cs" />
     <Compile Include="Commands\RectangulationCommand.cs" />
     <Compile Include="ViewModels\BaseShapeVM.cs" />
     <Compile Include="Models\Polygon.cs" />

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,13 +12,28 @@ namespace Rectangulation
 {
     public class RectangleVM : BaseShapeVM
     {
+        /// <summary>
+        /// Прямоугольник
+        /// </summary>
         private readonly Rectangle _rectangle;
 
-        public static int Width { get; set; } = 30;
+        /// <summary>
+        /// Ширина прямоугольника
+        /// </summary>
+        public static int Width { get; set; } = 20;
 
-        public static int Height { get; set; } = 30;
+        /// <summary>
+        /// Высота прямоугольника
+        /// </summary>
+        public static int Height { get; set; } = 20;
 
-        public string Label => "Прямоугольник " + _rectangle.Id.ToString();
+        /// <summary>
+        /// Имя прямоугольника в списке
+        /// </summary>
+        public string Label
+        {
+            get { return "Прямоугольник " + _rectangle.Id.ToString(); }
+        }
 
         public bool Checked { get; set; }
 
@@ -35,6 +52,11 @@ namespace Rectangulation
         /// </summary>
         public override double StrokeThickness => 1;
 
+        /// <summary>
+        /// Конструктор RectangleVM
+        /// </summary>
+        /// <param name="x">Координата X левого правого угла прямоугольника</param>
+        /// <param name="y">Координата Y левого правого угла прямоугольника</param>
         public RectangleVM(double x, double y)
         {
             _rectangle = new Rectangle(x, y, Width, Height);

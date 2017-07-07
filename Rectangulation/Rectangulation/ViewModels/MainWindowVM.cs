@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using Rectangulation.Commands;
 
 namespace Rectangulation
 {
@@ -27,15 +28,13 @@ namespace Rectangulation
         private ObservableCollection<RectangleVM> _rectangles = new ObservableCollection<RectangleVM>();
 
         /// <summary>
-        /// Объединенная коллекция фигур
-        /// </summary>
-        //private CompositeCollection Shapes = new CompositeCollection();
-
-        /// <summary>
         /// Текущий полигон
         /// </summary>
         private PolygonVM _currentPolygon = null;
 
+        /// <summary>
+        /// Конструктор MainWindowVM
+        /// </summary>
         public MainWindowVM()
         {
             Shapes = new CompositeCollection();
@@ -47,6 +46,30 @@ namespace Rectangulation
             CollectionContainer rectangleContainer = new CollectionContainer();
             rectangleContainer.Collection = _rectangles;
             Shapes.Add(rectangleContainer);
+        }
+
+        /// <summary>
+        /// Свойство коллекция прямоугольников
+        /// </summary>
+        public ObservableCollection<RectangleVM> Rectangles
+        {
+            get { return _rectangles; }
+            set
+            {
+                _rectangles = value;
+            }
+        }
+
+        /// <summary>
+        /// Свойство коллекция полигонов
+        /// </summary>
+        public ObservableCollection<PolygonVM> Polygons
+        {
+            get { return _polygons; }
+            set
+            {
+                _polygons = value;
+            }
         }
 
         /// <summary>
@@ -62,7 +85,6 @@ namespace Rectangulation
         public void AddRectangle(double x, double y)
         {
             _rectangles.Add(new RectangleVM(x, y));
-            OnPropertyChanged();
         }
 
         /// <summary>
@@ -95,7 +117,7 @@ namespace Rectangulation
             }
         }
 
-        // Метод, вызываемый при нажатии кнопки Ректангулировать. Переделать в команду
+        // Метод, вызываемый  при нажатии правой кнопки мышиь. Переделать в команду
         public void ReightClick()
         {
             ClosePolygon();
@@ -106,37 +128,26 @@ namespace Rectangulation
             AddPointToPolygon(x, y);
         }
 
-        // <summary>
-        /// Удаление содержимого коллекции фигур
-        /// </summary>
-        public void ClearContent()
-        {
-            _polygons.Clear();
-            _rectangles.Clear();
-            OnPropertyChanged();
-        }
+       
 
         private RectangulationCommand _AddRectangleCommand;
-
+        
         public RectangulationCommand AddRectangleCommand
         {
-            get { return _AddRectangleCommand ?? (_AddRectangleCommand = new RectangulationCommand(_rectangles)); }
+            get { return _AddRectangleCommand ?? (_AddRectangleCommand = new RectangulationCommand()); }
         }
-        /*
-        private void AddRectangleExecute()
+
+        private ClearCommand _ClearCommand;
+
+        public ClearCommand ClearCommand
         {
-            var x = 120;
-            var y = 120;
-            for (var i = 0; i < 5; i++)
-            {
-                AddRectangle(x += 15, y += 15);
-            }
+            get { return _ClearCommand ?? (_ClearCommand = new ClearCommand()); }
         }
-        */
+
         /// <summary>
         /// Метод, вызываемый при изменении коллекции фигур
         /// </summary>
-        public void OnPropertyChanged([CallerMemberName]string prop = "Shapes")
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }

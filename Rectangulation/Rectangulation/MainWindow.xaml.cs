@@ -37,12 +37,12 @@ namespace Rectangulation
             Point p = e.GetPosition(mainCanvas);
             (DataContext as MainWindowVM).ReightClick();
         }
-        
+        /*
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             (DataContext as MainWindowVM).ClearContent();
         }
-
+        */
         /*private void RectangulationButton_Click(object sender, RoutedEventArgs e)
         {
             //(DataContext as MainWindowVM).ButtonRect();

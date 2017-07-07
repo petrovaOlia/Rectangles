@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +13,9 @@ namespace Rectangulation
 {
     class PolygonVM : BaseShapeVM
     {
+        /// <summary>
+        /// Полигон
+        /// </summary>
         private Polygon _polygon = new Polygon();
 
         /// <summary>
@@ -71,7 +76,7 @@ namespace Rectangulation
         }
 
         /// <summary>
-        /// Метод заиыкания полигона
+        /// Метод замыкания полигона
         /// </summary>
         public void Close()
         {
