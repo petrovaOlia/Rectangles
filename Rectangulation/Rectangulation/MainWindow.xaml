@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Rectangulation"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" >
+    <Window.Resources>
+        <local:MultiValueConverter x:Key="MultiValueConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -42,11 +45,11 @@
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" 
                            FontSize="15" Text="W = "/>
                 <TextBox Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left"
-                         Height ="20" Width="30" FontSize ="15"/>
+                         Height ="20" Width="30" FontSize ="15" Text="{Binding RectWidth}"/>
                 <TextBlock Grid.Column="2"  VerticalAlignment="Center" 
                            HorizontalAlignment="Right" FontSize="15" Text="H = "/>
                 <TextBox Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Left"
-                         Height ="20" Width="30" FontSize ="15"/>
+                         Height ="20" Width="30" FontSize ="15" Text="{Binding RectHeight}"/>
             </Grid>
             <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать" 
                     Command="{Binding AddRectangleCommand}" CommandParameter="{Binding }"/>
@@ -64,11 +67,21 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Path Data="{Binding Geometry}" Fill="{Binding Fill, UpdateSourceTrigger=PropertyChanged}"
+                        <Path Data="{Binding Geometry}" Fill="{Binding Fill}"
                         Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+            <Canvas.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding AddPolygonCommand}" >
+                    <MouseBinding.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName='mainCanvas' />
+                            <Binding />
+                        </MultiBinding>
+                    </MouseBinding.CommandParameter>
+                </MouseBinding>
+            </Canvas.InputBindings>
         </Canvas>
     </Grid>
 </Window>

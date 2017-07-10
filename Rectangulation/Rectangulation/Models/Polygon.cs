@@ -8,7 +8,10 @@ namespace Rectangulation
 {
     public class Polygon 
     {
-        List<Point> _points = new List<Point>();
+        /// <summary>
+        /// Лист точек полигона
+        /// </summary>
+        List<Point> Points { get; }
 
         /// <summary>
         /// Свойство кисть заливки
@@ -25,8 +28,12 @@ namespace Rectangulation
         /// </summary>
         public double StrokeThickness { get; set; }
 
+        /// <summary>
+        /// Конструктор полигона
+        /// </summary>
         public Polygon()
         {
+            Points = new List<Point>();
             Fill = Brushes.Transparent;
             Stroke = Brushes.Blue;
             StrokeThickness = 2;
@@ -39,7 +46,7 @@ namespace Rectangulation
         ///// <param name="y">Координата Y точки</param>
         public void AddPoint(double x, double y)
         {
-            _points.Add(new Point(x, y));
+            Points.Add(new Point(x, y));
         }
     }
 }

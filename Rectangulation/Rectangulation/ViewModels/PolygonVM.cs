@@ -16,22 +16,22 @@ namespace Rectangulation
         /// <summary>
         /// Полигон
         /// </summary>
-        private Polygon _polygon = new Polygon();
+        public Polygon Polygon { get; }
 
         /// <summary>
         /// Свойство кисть заливки
         /// </summary>
-        public override Brush Fill => _polygon.Fill;
+        public override Brush Fill => Polygon.Fill;
 
         /// <summary>
         /// Свойство кисть контура
         /// </summary>
-        public override Brush Stroke => _polygon.Stroke;
+        public override Brush Stroke => Polygon.Stroke;
 
         /// <summary>
         /// Свойство толщина линии
         /// </summary>
-        public override double StrokeThickness => _polygon.StrokeThickness;
+        public override double StrokeThickness => Polygon.StrokeThickness;
 
         /// <summary>
         /// Конструктор полигона
@@ -40,7 +40,8 @@ namespace Rectangulation
         /// <param name="y">Координата Y стартовой точки</param>
         public PolygonVM(double x, double y)
         {
-            _polygon.AddPoint(x, y);
+            Polygon = new Polygon();
+            Polygon.AddPoint(x, y);
 
             PathGeometry pathGeom = new PathGeometry();
             PolyLineSegment segment = new PolyLineSegment();
@@ -59,18 +60,18 @@ namespace Rectangulation
         /// <param name="y">Координата Y точки</param>
         public void AddPoint(double x, double y)
         {
-            _polygon.AddPoint(x, y);
-            if (Geometry != null)
+            Polygon.AddPoint(x, y);
+            if (Geometry == null)
+                return;
+
+            PathGeometry pathGeom = (PathGeometry)Geometry;
+            if (pathGeom.Figures.Count > 0)
             {
-                PathGeometry pathGeom = (PathGeometry)Geometry;
-                if (pathGeom.Figures.Count > 0)
+                PathFigure figure = (PathFigure)pathGeom.Figures[0];
+                if (figure.Segments.Count > 0)
                 {
-                    PathFigure figure = (PathFigure)pathGeom.Figures[0];
-                    if (figure.Segments.Count > 0)
-                    {
-                        PolyLineSegment segment = (PolyLineSegment)figure.Segments[0];
-                        segment.Points.Add(new Point(x, y));
-                    }
+                    PolyLineSegment segment = (PolyLineSegment)figure.Segments[0];
+                    segment.Points.Add(new Point(x, y));
                 }
             }
         }
@@ -80,19 +81,18 @@ namespace Rectangulation
         /// </summary>
         public void Close()
         {
-            if (Geometry != null)
+            if (Geometry == null)
+                return;
+            PathGeometry pathGeom = (PathGeometry)Geometry;
+            if (pathGeom.Figures.Count > 0)
             {
-                PathGeometry pathGeom = (PathGeometry)Geometry;
-                if (pathGeom.Figures.Count > 0)
+                PathFigure figure = (PathFigure)pathGeom.Figures[0];
+                if (figure.Segments.Count > 0)
                 {
-                    PathFigure figure = (PathFigure)pathGeom.Figures[0];
-                    if (figure.Segments.Count > 0)
-                    {
-                        PolyLineSegment segment = (PolyLineSegment)figure.Segments[0];
-                        segment.Points.Add(figure.StartPoint);
-                    }
-
+                    PolyLineSegment segment = (PolyLineSegment)figure.Segments[0];
+                    segment.Points.Add(figure.StartPoint);
                 }
+
             }
         }
     }

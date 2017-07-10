@@ -7,25 +7,43 @@ namespace Rectangulation
 {
     public class Rectangle
     {
+        public Rect Rect;
+
         /// <summary>
         /// Координата X левого правого угла прямоугольника
         /// </summary>
-        private double _x;
+        public double X
+        {
+            get { return Rect.X; }
+            set { Rect.X = value; }
+        }
 
         /// <summary>
         ///  Координата Y левого правого угла прямоугольника
         /// </summary>
-        private double _y;
+        public double Y
+        {
+            get { return Rect.Y; }
+            set { Rect.Y = value; }
+        }
 
         /// <summary>
         /// Ширина прямоугольника
         /// </summary>
-        private int _width;
+        public double Width
+        {
+            get { return Rect.Width; }
+            set { Rect.Width = value; }
+        }
 
         /// <summary>
         /// Высота прямоугольника
         /// </summary>
-        private int _height;
+        public double Height
+        {
+            get { return Rect.Height; }
+            set { Rect.Height = value; }
+        }
 
         /// <summary>
         /// Номер в списке прямоугольника
@@ -37,30 +55,10 @@ namespace Rectangulation
         /// </summary>
         static int _lastID = 1;
 
-        private bool _selected;
-
         /// <summary>
         /// Свойство кисть заливки и контура
         /// </summary>
         public Brush Fill { get; set; }
-
-        /// <summary>
-        /// Свойство, использующиеся для выделения цветом прямоугольника
-        /// </summary>
-        public bool Selected
-        {
-            get
-            {
-                return _selected;
-            }
-            set
-            {
-                _selected = value;
-                Fill = _selected ? Brushes.Red : Brushes.Black;
-
-            }
-        }
-
 
         /// <summary>
         /// Конструктор прямоугольника
@@ -71,12 +69,9 @@ namespace Rectangulation
         /// <param name="height">Высота прямоугольника</param>
         public Rectangle(double x, double y, int width, int height)
         {
-            _x = x;
-            _y = y;
-            _width = width;
-            _height = height;
+            Rect = new Rect(x, y, width, height);
+            Fill = Brushes.Black;
             _id = _lastID++;
-            Selected = false;
         }
 
         /// <summary>

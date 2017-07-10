@@ -15,37 +15,30 @@ namespace Rectangulation
         /// <summary>
         /// Прямоугольник
         /// </summary>
-        private readonly Rectangle _rectangle;
-
-        /// <summary>
-        /// Ширина прямоугольника
-        /// </summary>
-        public static int Width { get; set; } = 20;
-
-        /// <summary>
-        /// Высота прямоугольника
-        /// </summary>
-        public static int Height { get; set; } = 20;
+        private Rectangle Rectangle { get; }
 
         /// <summary>
         /// Имя прямоугольника в списке
         /// </summary>
         public string Label
         {
-            get { return "Прямоугольник " + _rectangle.Id.ToString(); }
+            get { return "Прямоугольник " + Rectangle.Id.ToString(); }
         }
 
+        /// <summary>
+        /// Свойство, использующиеся для выбора в списке
+        /// </summary>
         public bool Checked { get; set; }
 
         /// <summary>
         /// Свойство кисть заливки
         /// </summary>
-        public override Brush Fill => _rectangle.Fill;
+        public override Brush Fill => Rectangle.Fill;
 
         /// <summary>
         /// Свойство кисть контура
         /// </summary>
-        public override Brush Stroke => _rectangle.Fill;
+        public override Brush Stroke => Rectangle.Fill;
 
         /// <summary>
         /// Свойство толщина линии
@@ -53,14 +46,32 @@ namespace Rectangulation
         public override double StrokeThickness => 1;
 
         /// <summary>
+        /// Свойство, использующиеся для выделения цветом прямоугольника
+        /// </summary>
+        bool _selected;
+
+        public bool Selected
+        {
+            get
+            {
+                return _selected;
+            }
+            set
+            {
+                _selected = value;
+                Rectangle.Fill = _selected ? Brushes.Red : Brushes.Black;
+            }
+        }
+
+        /// <summary>
         /// Конструктор RectangleVM
         /// </summary>
         /// <param name="x">Координата X левого правого угла прямоугольника</param>
         /// <param name="y">Координата Y левого правого угла прямоугольника</param>
-        public RectangleVM(double x, double y)
+        public RectangleVM(Rectangle rectangle)
         {
-            _rectangle = new Rectangle(x, y, Width, Height);
-            Geometry = new RectangleGeometry(new Rect(x, y, Width, Height));
+            Rectangle = rectangle;
+            Geometry = new RectangleGeometry(Rectangle.Rect);
         }
     }
 }

@@ -23,7 +23,8 @@ namespace Rectangulation
                 var y = 100;
                 for (var i = 0; i < 5; i++)
                 {
-                    rectangles.Add(new RectangleVM(x += 25, y += 25));
+                    var rectangle = new Rectangle(x += 25, y += 25, parameterVM.RectWidth, parameterVM.RectHeight);
+                    rectangles.Add(new RectangleVM(rectangle));
                 }
             }
             else

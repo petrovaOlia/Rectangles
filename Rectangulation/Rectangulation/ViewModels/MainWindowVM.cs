@@ -20,57 +20,17 @@ namespace Rectangulation
         /// <summary>
         /// Коллекция полигонов
         /// </summary>
-        private ObservableCollection<PolygonVM> _polygons = new ObservableCollection<PolygonVM>();
+        public ObservableCollection<PolygonVM> Polygons { get; }
 
         /// <summary>
         /// Коллекция прямоугольников
         /// </summary>
-        private ObservableCollection<RectangleVM> _rectangles = new ObservableCollection<RectangleVM>();
+        public ObservableCollection<RectangleVM> Rectangles { get; }
 
         /// <summary>
         /// Текущий полигон
         /// </summary>
-        private PolygonVM _currentPolygon = null;
-
-        /// <summary>
-        /// Конструктор MainWindowVM
-        /// </summary>
-        public MainWindowVM()
-        {
-            Shapes = new CompositeCollection();
-
-            CollectionContainer polygonContainer = new CollectionContainer();
-            polygonContainer.Collection = _polygons;
-            Shapes.Add(polygonContainer);
-
-            CollectionContainer rectangleContainer = new CollectionContainer();
-            rectangleContainer.Collection = _rectangles;
-            Shapes.Add(rectangleContainer);
-        }
-
-        /// <summary>
-        /// Свойство коллекция прямоугольников
-        /// </summary>
-        public ObservableCollection<RectangleVM> Rectangles
-        {
-            get { return _rectangles; }
-            set
-            {
-                _rectangles = value;
-            }
-        }
-
-        /// <summary>
-        /// Свойство коллекция полигонов
-        /// </summary>
-        public ObservableCollection<PolygonVM> Polygons
-        {
-            get { return _polygons; }
-            set
-            {
-                _polygons = value;
-            }
-        }
+        public PolygonVM CurrentPolygon { get; set; }
 
         /// <summary>
         /// Свойство коллекция фигур
@@ -78,13 +38,53 @@ namespace Rectangulation
         public CompositeCollection Shapes { get; private set; }
 
         /// <summary>
-        /// Метод добавления квадрата в коллекцию _shapes
+        /// Команда добавления полигона
         /// </summary>
-        /// <param name="x">Координата X левого правого угла прямоугольника</param>
-        /// <param name="y">Координата Y левого правого угла прямоугольника</param>
-        public void AddRectangle(double x, double y)
+        public AddPolygonCommand AddPolygonCommand { get; }
+
+        /// <summary>
+        /// Комманда добавления квадрата в коллекцию _shapes
+        /// </summary>
+        public RectangulationCommand AddRectangleCommand { get; }
+
+        /// <summary>
+        /// Комманда очистки области отображения
+        /// </summary>
+        public ClearCommand ClearCommand { get; }
+
+        /// <summary>
+        /// Ширина прямоугольника
+        /// </summary>
+        public int RectWidth { get; set; }
+
+        /// <summary>
+        /// Высота прямоугольника
+        /// </summary>
+        public int RectHeight { get; set; }
+
+        /// <summary>
+        /// Конструктор MainWindowVM
+        /// </summary>
+        public MainWindowVM()
         {
-            _rectangles.Add(new RectangleVM(x, y));
+            AddRectangleCommand = new RectangulationCommand();
+            ClearCommand = new ClearCommand();
+
+            Shapes = new CompositeCollection();
+            Polygons = new ObservableCollection<PolygonVM>();
+            Rectangles = new ObservableCollection<RectangleVM>();
+
+            CollectionContainer polygonContainer = new CollectionContainer();
+            polygonContainer.Collection = Polygons;
+            Shapes.Add(polygonContainer);
+
+            CollectionContainer rectangleContainer = new CollectionContainer();
+            rectangleContainer.Collection = Rectangles;
+            Shapes.Add(rectangleContainer);
+
+            CurrentPolygon = null;
+            RectWidth = 20;
+            RectHeight = 20;
         }
 
         /// <summary>
@@ -94,13 +94,13 @@ namespace Rectangulation
         /// <param name="y">Координата Y точки</param>
         public void AddPointToPolygon(double x, double y)
         {
-            if (_currentPolygon == null)
+            if (CurrentPolygon == null)
             {
-                _currentPolygon = new PolygonVM(x, y);
-                _polygons.Add(_currentPolygon);
+                CurrentPolygon = new PolygonVM(x, y);
+                Polygons.Add(CurrentPolygon);
             }
             else
-                _currentPolygon.AddPoint(x, y);
+                CurrentPolygon.AddPoint(x, y);
             OnPropertyChanged();
         }
 
@@ -109,10 +109,10 @@ namespace Rectangulation
         /// </summary>
         public void ClosePolygon()
         {
-            if (_currentPolygon != null)
+            if (CurrentPolygon != null)
             {
-                _currentPolygon.Close();
-                _currentPolygon = null;
+                CurrentPolygon.Close();
+                CurrentPolygon = null;
                 OnPropertyChanged();
             }
         }
@@ -122,26 +122,11 @@ namespace Rectangulation
         {
             ClosePolygon();
         }
+
         // Метод, вызываемый при нажатии левой кнопки мыши. Переделать в команду
-        public void LeftClick (double x, double y)
+        public void LeftClick(double x, double y)
         {
             AddPointToPolygon(x, y);
-        }
-
-       
-
-        private RectangulationCommand _AddRectangleCommand;
-        
-        public RectangulationCommand AddRectangleCommand
-        {
-            get { return _AddRectangleCommand ?? (_AddRectangleCommand = new RectangulationCommand()); }
-        }
-
-        private ClearCommand _ClearCommand;
-
-        public ClearCommand ClearCommand
-        {
-            get { return _ClearCommand ?? (_ClearCommand = new ClearCommand()); }
         }
 
         /// <summary>
