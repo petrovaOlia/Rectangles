@@ -11,15 +11,17 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="107*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
+            <RowDefinition Height="62*"/>
+            <RowDefinition Height="107*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.RowSpan="2" ItemsSource="{Binding Rectangles}">
+        <ListBox Grid.RowSpan="3" ItemsSource="{Binding Rectangles}" Margin="0,0,0,0.334"
+                 SelectedItem="{Binding SelectedRectangle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5" Orientation="Horizontal">
@@ -29,7 +31,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="0,61.333,0,-0.333" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -56,9 +58,8 @@
             <Button Grid.Row="2" Margin="5" FontSize="15" Content="Очистить"
                     Command="{Binding ClearCommand}" CommandParameter="{Binding }"/>
         </Grid>
-        <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="3" 
-                 PreviewMouseLeftButtonDown="Canvas_MouseLeftDown" Background="White" 
-                 PreviewMouseRightButtonDown="mainCanvas_PreviewMouseRightButtonDown">
+        <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="4" 
+                 Background="White" Margin="0,0,-0.333,-0.333" AllowDrop="True" >
             <ItemsControl ItemsSource="{Binding Shapes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -73,7 +74,15 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
             <Canvas.InputBindings>
-                <MouseBinding Gesture="LeftClick" Command="{Binding AddPolygonCommand}" >
+                <MouseBinding Gesture="LeftClick" Command="{Binding LeftClickCommand}" >
+                    <MouseBinding.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName='mainCanvas' />
+                            <Binding />
+                        </MultiBinding>
+                    </MouseBinding.CommandParameter>
+                </MouseBinding>
+                <MouseBinding Gesture="RightClick" Command="{Binding RightClickCommand}" >
                     <MouseBinding.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName='mainCanvas' />

@@ -7,16 +7,12 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using Rectangulation.Commands;
+using Rectangulation.ViewModels;
 
 namespace Rectangulation
 {
-    class MainWindowVM : INotifyPropertyChanged
+    class MainWindowVM : ViewModel
     {
-        /// <summary>
-        /// Событие изменения коллекции фигур
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
         /// <summary>
         /// Коллекция полигонов
         /// </summary>
@@ -33,24 +29,31 @@ namespace Rectangulation
         public PolygonVM CurrentPolygon { get; set; }
 
         /// <summary>
+        /// Выделенный прямоугольник
+        /// </summary>
+        private RectangleVM _selectedRectangle;
+
+        /// <summary>
+        /// Свойство выделенного прямоугольника
+        /// </summary>
+        public RectangleVM SelectedRectangle
+        {
+            get { return _selectedRectangle; }
+            set
+            {
+                if (_selectedRectangle != null)
+                    _selectedRectangle.Selected = false;
+                _selectedRectangle = value;
+                if (_selectedRectangle != null)
+                    _selectedRectangle.Selected = true;
+                OnPropertyChanged("SelectedRectangle");
+            }
+        }
+
+        /// <summary>
         /// Свойство коллекция фигур
         /// </summary>
         public CompositeCollection Shapes { get; private set; }
-
-        /// <summary>
-        /// Команда добавления полигона
-        /// </summary>
-        public AddPolygonCommand AddPolygonCommand { get; }
-
-        /// <summary>
-        /// Комманда добавления квадрата в коллекцию _shapes
-        /// </summary>
-        public RectangulationCommand AddRectangleCommand { get; }
-
-        /// <summary>
-        /// Комманда очистки области отображения
-        /// </summary>
-        public ClearCommand ClearCommand { get; }
 
         /// <summary>
         /// Ширина прямоугольника
@@ -63,12 +66,39 @@ namespace Rectangulation
         public int RectHeight { get; set; }
 
         /// <summary>
+        /// Свойство, определяющие возможность рисования полигона
+        /// </summary>
+        public bool DrawingPoligons { get; set; }
+
+        /// <summary>
+        /// Команда нажатия левой кнопки мыши
+        /// </summary>
+        public LeftClickCommand LeftClickCommand { get; }
+
+        /// <summary>
+        /// Команда нажатия правой кнопки мыши
+        /// </summary>
+        public RightClickCommand RightClickCommand { get; }
+
+        /// <summary>
+        /// Комманда нажатия кнопки Ректаннуляция
+        /// </summary>
+        public RectangulationCommand AddRectangleCommand { get; }
+
+        /// <summary>
+        /// Комманда нажатия кнопки Очистить
+        /// </summary>
+        public ClearCommand ClearCommand { get; }
+
+        /// <summary>
         /// Конструктор MainWindowVM
         /// </summary>
         public MainWindowVM()
         {
             AddRectangleCommand = new RectangulationCommand();
             ClearCommand = new ClearCommand();
+            LeftClickCommand = new LeftClickCommand();
+            RightClickCommand = new RightClickCommand();
 
             Shapes = new CompositeCollection();
             Polygons = new ObservableCollection<PolygonVM>();
@@ -85,6 +115,8 @@ namespace Rectangulation
             CurrentPolygon = null;
             RectWidth = 20;
             RectHeight = 20;
+            SelectedRectangle = null;
+            DrawingPoligons = true;
         }
 
         /// <summary>
@@ -102,39 +134,6 @@ namespace Rectangulation
             else
                 CurrentPolygon.AddPoint(x, y);
             OnPropertyChanged();
-        }
-
-        /// <summary>
-        /// Метод замыкания полигона
-        /// </summary>
-        public void ClosePolygon()
-        {
-            if (CurrentPolygon != null)
-            {
-                CurrentPolygon.Close();
-                CurrentPolygon = null;
-                OnPropertyChanged();
-            }
-        }
-
-        // Метод, вызываемый  при нажатии правой кнопки мышиь. Переделать в команду
-        public void ReightClick()
-        {
-            ClosePolygon();
-        }
-
-        // Метод, вызываемый при нажатии левой кнопки мыши. Переделать в команду
-        public void LeftClick(double x, double y)
-        {
-            AddPointToPolygon(x, y);
-        }
-
-        /// <summary>
-        /// Метод, вызываемый при изменении коллекции фигур
-        /// </summary>
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

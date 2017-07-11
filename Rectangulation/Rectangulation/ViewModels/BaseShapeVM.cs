@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Rectangulation.ViewModels;
 
 namespace Rectangulation
 {
    
-    public abstract class BaseShapeVM 
+    public abstract class BaseShapeVM : ViewModel
     {
         /// <summary>
         /// Свойство геометрия фигуры

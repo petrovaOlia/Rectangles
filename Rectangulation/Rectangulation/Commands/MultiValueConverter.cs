@@ -4,8 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Rectangulation
 {
@@ -15,8 +17,8 @@ namespace Rectangulation
         {
             var canvas = values[0] as Canvas;
             var vmodel = values[1] as MainWindowVM;
-            return null;
-            //throw new NotImplementedException();
+
+            return values.Clone();
         }
 
         object[] IMultiValueConverter.ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

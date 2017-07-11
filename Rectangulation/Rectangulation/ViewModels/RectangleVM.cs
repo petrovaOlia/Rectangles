@@ -60,6 +60,8 @@ namespace Rectangulation
             {
                 _selected = value;
                 Rectangle.Fill = _selected ? Brushes.Red : Brushes.Black;
+                OnPropertyChanged("Fill");
+                OnPropertyChanged("Stroke");
             }
         }
 

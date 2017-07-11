@@ -25,17 +25,6 @@ namespace Rectangulation
             InitializeComponent();
             DataContext = new MainWindowVM();
         }
-
-        private void Canvas_MouseLeftDown(object sender, MouseButtonEventArgs e)
-        {
-            Point p = e.GetPosition(mainCanvas);
-            (DataContext as MainWindowVM).LeftClick(p.X, p.Y);
-        }
-
-        private void mainCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Point p = e.GetPosition(mainCanvas);
-            (DataContext as MainWindowVM).ReightClick();
-        }
+        
     }
 }

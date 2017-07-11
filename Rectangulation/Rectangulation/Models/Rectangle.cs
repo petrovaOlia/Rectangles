@@ -46,19 +46,19 @@ namespace Rectangulation
         }
 
         /// <summary>
-        /// Номер в списке прямоугольника
-        /// </summary>
-        private int _id;
-
-        /// <summary>
-        /// Последний номер в списоке прямоугольника
-        /// </summary>
-        static int _lastID = 1;
-
-        /// <summary>
         /// Свойство кисть заливки и контура
         /// </summary>
         public Brush Fill { get; set; }
+
+        /// <summary>
+        /// Свойство нумерации прямоугольника
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Свойство последнего номера в списоке прямоугольника
+        /// </summary>
+        public static int LastId { get; set; } = 1;
 
         /// <summary>
         /// Конструктор прямоугольника
@@ -71,15 +71,10 @@ namespace Rectangulation
         {
             Rect = new Rect(x, y, width, height);
             Fill = Brushes.Black;
-            _id = _lastID++;
+            Id = LastId;
+            LastId = LastId + 1;
         }
-
-        /// <summary>
-        /// Свойство нумерации прямоугольника
-        /// </summary>
-        public int Id
-        {
-            get { return _id; }
-        }
+        
+        
     }
 }

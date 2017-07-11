@@ -11,7 +11,7 @@ namespace Rectangulation
         /// <summary>
         /// Лист точек полигона
         /// </summary>
-        List<Point> Points { get; }
+        public List<Point> Points { get; }
 
         /// <summary>
         /// Свойство кисть заливки
