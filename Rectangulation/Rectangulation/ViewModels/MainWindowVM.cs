@@ -104,12 +104,10 @@ namespace Rectangulation
             Polygons = new ObservableCollection<PolygonVM>();
             Rectangles = new ObservableCollection<RectangleVM>();
 
-            CollectionContainer polygonContainer = new CollectionContainer();
-            polygonContainer.Collection = Polygons;
+            var polygonContainer = new CollectionContainer {Collection = Polygons};
             Shapes.Add(polygonContainer);
 
-            CollectionContainer rectangleContainer = new CollectionContainer();
-            rectangleContainer.Collection = Rectangles;
+            var rectangleContainer = new CollectionContainer {Collection = Rectangles};
             Shapes.Add(rectangleContainer);
 
             CurrentPolygon = null;

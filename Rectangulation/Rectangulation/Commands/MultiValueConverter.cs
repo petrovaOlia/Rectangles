@@ -15,9 +15,6 @@ namespace Rectangulation
     {
         object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var canvas = values[0] as Canvas;
-            var vmodel = values[1] as MainWindowVM;
-
             return values.Clone();
         }
 

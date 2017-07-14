@@ -16,16 +16,11 @@ namespace Rectangulation.Commands
         public void Execute(object parameter)
         {
             var values = (object[])parameter;
-            var canvas = values[0] as Canvas;
-            var vmodel = values[1] as MainWindowVM;
-            Point mousePos = Mouse.GetPosition(canvas);
-            if (vmodel.DrawingPoligons)
+            var canvas = (Canvas)values[0];
+            var vmodel = (MainWindowVM)values[1];
+            var mousePos = Mouse.GetPosition(canvas);
+            if (!SelectRectangle(mousePos.X, mousePos.Y, vmodel))
                 AddPointToPolygon(mousePos.X, mousePos.Y, vmodel);
-            else
-            {
-                vmodel.SelectedRectangle = null;
-                SelectRectangle(mousePos.X, mousePos.Y, vmodel);
-            }
         }
 
         public bool CanExecute(object parameter)
@@ -48,6 +43,7 @@ namespace Rectangulation.Commands
             else
                 vmodel.CurrentPolygon.AddPoint(x, y);
             vmodel.OnPropertyChanged();
+            vmodel.SelectedRectangle = null;
         }
 
         /// <summary>
@@ -56,19 +52,25 @@ namespace Rectangulation.Commands
         /// <param name="x">Координата X нажатия левой кнопки мыши</param>
         /// <param name="y">Координата Y нажатия левой кнопки мыши</param>
         /// <param name="vmodel">Экземляр MainWindowVM</param>
-        private void SelectRectangle(double x, double y, MainWindowVM vmodel)
+        private bool SelectRectangle(double x, double y, MainWindowVM vmodel)
         {
             foreach (var rectangle in vmodel.Rectangles)
             {
-                if ((x >= rectangle.Geometry.Bounds.X) &&
-                    (y >= rectangle.Geometry.Bounds.Y) &&
-                    (x <= rectangle.Geometry.Bounds.X + rectangle.Geometry.Bounds.Width) &&
-                    (y <= rectangle.Geometry.Bounds.Y + rectangle.Geometry.Bounds.Height))
+                if (((x >= rectangle.Geometry.Bounds.X - 2) &&
+                    (y >= rectangle.Geometry.Bounds.Y - 2) &&
+                    (x <= rectangle.Geometry.Bounds.X + 2) &&
+                    (y <= rectangle.Geometry.Bounds.Y + 2)) ||
+                    ((x <= rectangle.Geometry.Bounds.X + rectangle.Geometry.Bounds.Width + 2) &&
+                    (y <= rectangle.Geometry.Bounds.Y + rectangle.Geometry.Bounds.Height + 2) &&
+                    (x >= rectangle.Geometry.Bounds.X + rectangle.Geometry.Bounds.Width - 2) &&
+                    (y >= rectangle.Geometry.Bounds.Y + rectangle.Geometry.Bounds.Height - 2)))
                 {
+                    vmodel.SelectedRectangle = null;
                     vmodel.SelectedRectangle = rectangle;
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
 
     }

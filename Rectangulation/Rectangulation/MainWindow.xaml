@@ -5,22 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectangulation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" >
+        Title="Ректангуляция" Height="350" Width="525" MinHeight="350" MinWidth="525">
     <Window.Resources>
         <local:MultiValueConverter x:Key="MultiValueConverter" />
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="107*"></RowDefinition>
-            <RowDefinition Height="45*"></RowDefinition>
-            <RowDefinition Height="62*"/>
-            <RowDefinition Height="107*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="57*"></ColumnDefinition>
+            <ColumnDefinition Width="116*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.RowSpan="3" ItemsSource="{Binding Rectangles}" Margin="0,0,0,0.334"
+        <ListBox ItemsSource="{Binding Rectangles}" Margin="5,5,4.667,5"
                  SelectedItem="{Binding SelectedRectangle}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -31,35 +29,25 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Row="2" Margin="0,61.333,0,-0.333" Grid.RowSpan="2">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="36.667"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" 
-                           FontSize="15" Text="W = "/>
-                <TextBox Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left"
-                         Height ="20" Width="30" FontSize ="15" Text="{Binding RectWidth}"/>
-                <TextBlock Grid.Column="2"  VerticalAlignment="Center" 
-                           HorizontalAlignment="Right" FontSize="15" Text="H = "/>
-                <TextBox Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Left"
-                         Height ="20" Width="30" FontSize ="15" Text="{Binding RectHeight}"/>
-            </Grid>
-            <Button Grid.Row="1" Margin="5" FontSize="15" Content="Ректангулировать" 
-                    Command="{Binding AddRectangleCommand}" CommandParameter="{Binding }"/>
-            <Button Grid.Row="2" Margin="5" FontSize="15" Content="Очистить"
-                    Command="{Binding ClearCommand}" CommandParameter="{Binding }"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock FontSize="12" Text="Ширина " Height="16"  Width="49"/>
+                <TextBox   Height ="20" Width="25" FontSize ="12" Text="{Binding RectWidth}" Margin="0,0,15,0"/>
+                <TextBlock FontSize="12" Text="Высота " Height="16" Width="42"/>
+                <TextBox Height ="20" Width="25" FontSize ="12" Text="{Binding RectHeight}"/>
+            </StackPanel>
+            <Button Grid.Row="1" Margin="5" MaxHeight="25" MaxWidth="160" FontSize="15" 
+                    Content="Ректангулировать" Command="{Binding AddRectangleCommand}" CommandParameter="{Binding }"/>
+            <Button Grid.Row="2" Margin="5" MaxHeight="25" MaxWidth="160" FontSize="15" 
+                    Content="Очистить" Command="{Binding ClearCommand}" CommandParameter="{Binding }"/>
         </Grid>
-        <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="4" 
-                 Background="White" Margin="0,0,-0.333,-0.333" AllowDrop="True" >
+        <Canvas  x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="2" 
+                 Background="White" Margin="0.333,0,-0.333,-0.333" AllowDrop="True" >
             <ItemsControl ItemsSource="{Binding Shapes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

@@ -14,7 +14,7 @@ namespace Rectangulation.Commands
 
         public void Execute(object parameter)
         {
-            MainWindowVM parameterVM = (MainWindowVM)parameter;
+            var parameterVM = (MainWindowVM)parameter;
             parameterVM.DrawingPoligons = true;
             parameterVM.Rectangles.Clear();
             parameterVM.Polygons.Clear();

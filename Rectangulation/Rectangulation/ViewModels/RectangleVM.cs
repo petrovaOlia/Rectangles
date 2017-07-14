@@ -20,10 +20,7 @@ namespace Rectangulation
         /// <summary>
         /// Имя прямоугольника в списке
         /// </summary>
-        public string Label
-        {
-            get { return "Прямоугольник " + Rectangle.Id.ToString(); }
-        }
+        public string Label => "Прямоугольник " + Rectangle.Id.ToString();
 
         /// <summary>
         /// Свойство, использующиеся для выбора в списке
@@ -48,8 +45,8 @@ namespace Rectangulation
         /// <summary>
         /// Свойство, использующиеся для выделения цветом прямоугольника
         /// </summary>
-        bool _selected;
-
+        private bool _selected;
+        
         public bool Selected
         {
             get
@@ -60,7 +57,6 @@ namespace Rectangulation
             {
                 _selected = value;
                 Rectangle.Fill = _selected ? Brushes.Red : Brushes.Black;
-                OnPropertyChanged("Fill");
                 OnPropertyChanged("Stroke");
             }
         }

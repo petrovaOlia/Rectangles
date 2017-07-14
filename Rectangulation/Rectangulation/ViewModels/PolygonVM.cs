@@ -43,11 +43,9 @@ namespace Rectangulation
             Polygon = new Polygon();
             Polygon.AddPoint(x, y);
 
-            PathGeometry pathGeom = new PathGeometry();
-            PolyLineSegment segment = new PolyLineSegment();
-            segment.Points = new PointCollection();
-            PathFigure figure = new PathFigure();
-            figure.StartPoint = new Point(x, y);
+            var pathGeom = new PathGeometry();
+            var segment = new PolyLineSegment {Points = new PointCollection()};
+            var figure = new PathFigure {StartPoint = new Point(x, y)};
             figure.Segments.Add(segment);
             pathGeom.Figures.Add(figure);
             Geometry = pathGeom;
@@ -63,17 +61,12 @@ namespace Rectangulation
             Polygon.AddPoint(x, y);
             if (Geometry == null)
                 return;
-
-            PathGeometry pathGeom = (PathGeometry)Geometry;
-            if (pathGeom.Figures.Count > 0)
-            {
-                PathFigure figure = (PathFigure)pathGeom.Figures[0];
-                if (figure.Segments.Count > 0)
-                {
-                    PolyLineSegment segment = (PolyLineSegment)figure.Segments[0];
-                    segment.Points.Add(new Point(x, y));
-                }
-            }
+            var pathGeom = (PathGeometry)Geometry;
+            if (pathGeom.Figures.Count <= 0) return;
+            var figure = (PathFigure)pathGeom.Figures[0];
+            if (figure.Segments.Count <= 0) return;
+            var segment = (PolyLineSegment)figure.Segments[0];
+            segment.Points.Add(new Point(x, y));
         }
 
         /// <summary>
@@ -83,17 +76,12 @@ namespace Rectangulation
         {
             if (Geometry == null)
                 return;
-            PathGeometry pathGeom = (PathGeometry)Geometry;
-            if (pathGeom.Figures.Count > 0)
-            {
-                PathFigure figure = (PathFigure)pathGeom.Figures[0];
-                if (figure.Segments.Count > 0)
-                {
-                    PolyLineSegment segment = (PolyLineSegment)figure.Segments[0];
-                    segment.Points.Add(figure.StartPoint);
-                }
-
-            }
+            var pathGeom = (PathGeometry)Geometry;
+            if (pathGeom.Figures.Count <= 0) return;
+            var figure = (PathFigure)pathGeom.Figures[0];
+            if (figure.Segments.Count <= 0) return;
+            var segment = (PolyLineSegment)figure.Segments[0];
+            segment.Points.Add(figure.StartPoint);
         }
     }
 }

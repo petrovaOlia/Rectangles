@@ -15,9 +15,9 @@ namespace Rectangulation.Commands
         public void Execute(object parameter)
         {
             var values = (object[])parameter;
-            var canvas = values[0] as Canvas;
-            var vmodel = values[1] as MainWindowVM;
-            if ((vmodel.CurrentPolygon != null) && vmodel.DrawingPoligons)
+            var canvas = (Canvas)values[0] ;
+            var vmodel = (MainWindowVM)values[1];
+            if ((vmodel.CurrentPolygon != null) && (vmodel.DrawingPoligons))
                 ClosePolygon(vmodel);
         }
 
@@ -31,6 +31,7 @@ namespace Rectangulation.Commands
         /// </summary>
         public void ClosePolygon(MainWindowVM vmodel)
         {
+            if (vmodel.CurrentPolygon.Polygon.Points.Count < 3) return;
             vmodel.CurrentPolygon.Close();
             vmodel.CurrentPolygon = null;
             vmodel.OnPropertyChanged();

@@ -17,11 +17,10 @@ namespace Rectangulation
         {
             Rectangle.LastId = 1;
 
-            MainWindowVM vmodel = (MainWindowVM) parameter;
-            ObservableCollection<RectangleVM> rectangles = vmodel.Rectangles;
-            if (vmodel.Polygons.Count > 0)
+            var vmodel = (MainWindowVM)parameter;
+            var rectangles = vmodel.Rectangles;
+            if ((vmodel.Polygons.Count > 0) && (vmodel.CurrentPolygon == null))
             {
-                vmodel.DrawingPoligons = false;
                 Rectangulation(vmodel.Rectangles, vmodel.RectWidth, vmodel.RectHeight);
             }
         }
@@ -51,8 +50,8 @@ namespace Rectangulation
             }
             else
             {
-                int count = rectangles.Count;
-                for (int i = 0; i < count; i++)
+                var count = rectangles.Count;
+                for (var i = 0; i < count; i++)
                     if (!rectangles[i].Checked)
                     {
                         rectangles.RemoveAt(i);
