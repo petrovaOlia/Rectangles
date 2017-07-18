@@ -98,6 +98,7 @@ namespace Rectangulation
             Rectangle.Y = y;
             Rectangle.X = x;
             Geometry = new RectangleGeometry(Rectangle.Rect);
+            OnPropertyChanged("Geometry");
         }
     }
 }

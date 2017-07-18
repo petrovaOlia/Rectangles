@@ -37,9 +37,25 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock FontSize="12" Text="Ширина " Height="16"  Width="49"/>
-                <TextBox   Height ="20" Width="25" FontSize ="12" Text="{Binding RectWidth}" Margin="0,0,15,0"/>
-                <TextBlock FontSize="12" Text="Высота " Height="16" Width="42"/>
-                <TextBox Height ="20" Width="25" FontSize ="12" Text="{Binding RectHeight}"/>
+                <TextBox   Height ="20" Width="25" FontSize ="12"  Margin="0,0,15,0">
+                    <TextBox.Text >
+                        <Binding Path="RectWidth" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                    <TextBlock FontSize="12" Text="Высота " Height="16" Width="42"/>
+                <TextBox Height ="20" Width="25" FontSize ="12">
+                    <TextBox.Text >
+                        <Binding Path="RectHeight" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
             </StackPanel>
             <Button Grid.Row="1" Margin="5" MaxHeight="25" FontSize="15" 
                     Content="Ректангулировать" Command="{Binding RectangulationCommand}" CommandParameter="{Binding }"/>
@@ -47,8 +63,10 @@
                     Content="Очистить" Command="{Binding ClearCommand}" CommandParameter="{Binding }"/>
         </Grid>
         <Canvas   x:Name="mainCanvas"  Grid.Column="1" Grid.RowSpan="2" 
-                 Background="White" AllowDrop="True" MouseLeftButtonDown="mainCanvas_MouseLeftButtonDown" 
-                  MouseMove="mainCanvas_MouseMove" MouseLeftButtonUp="mainCanvas_MouseLeftButtonUp" >
+                 Background="White" AllowDrop="True" 
+                  PreviewMouseLeftButtonDown="mainCanvas_PreviewMouseLeftButtonDown" 
+                  PreviewMouseMove="mainCanvas_PreviewMouseMove" 
+                   PreviewMouseLeftButtonUp="mainCanvas_PreviewMouseLeftButtonUp" >
             <ItemsControl ItemsSource="{Binding Shapes}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -81,7 +99,7 @@
                     </MouseBinding.CommandParameter>
                 </MouseBinding>
             </Canvas.InputBindings>
-            
+           
         </Canvas>
     </Grid>
 </Window>

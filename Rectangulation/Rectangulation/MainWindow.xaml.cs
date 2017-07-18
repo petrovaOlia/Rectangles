@@ -26,17 +26,17 @@ namespace Rectangulation
             DataContext = new MainWindowVM();
         }
 
-        private void mainCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void mainCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             (DataContext as MainWindowVM).MouseDown(e.GetPosition(mainCanvas));
         }
 
-        private void mainCanvas_MouseMove(object sender, MouseEventArgs e)
+        private void mainCanvas_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             (DataContext as MainWindowVM).MouseMove(e.GetPosition(mainCanvas));
         }
 
-        private void mainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void mainCanvas_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             (DataContext as MainWindowVM).MouseUp(e.GetPosition(mainCanvas));
         }

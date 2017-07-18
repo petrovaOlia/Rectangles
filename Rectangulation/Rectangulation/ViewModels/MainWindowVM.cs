@@ -117,9 +117,15 @@ namespace Rectangulation
             DrawingPoligons = true;
         }
 
-
+        /// <summary>
+        /// Свойство, определяющие перемещение прямоугольника
+        /// </summary>
         private bool MovingRectangle { get; set; } = false;
 
+        /// <summary>
+        /// Метод нажатия мыши
+        /// </summary>
+        /// <param name="mousePos">Позиция мыши</param>
         public void MouseDown(Point mousePos)
         {
             foreach (var rectangle in Rectangles)
@@ -132,29 +138,27 @@ namespace Rectangulation
                 }
             }
         }
-
+        /// <summary>
+        /// Метод перемещения мыши
+        /// </summary>
+        /// <param name="mousePos">Позиция мыши</param>
         public void MouseMove(Point mousePos)
         {
             if ((SelectedRectangle != null) && (MovingRectangle))
             {
                 SelectedRectangle.Move(mousePos.X, mousePos.Y);
-                OnPropertyChanged("Geometry");
             }
         }
 
+        /// <summary>
+        /// Метод отпускания мыши
+        /// </summary>
+        /// <param name="mousePos">Позиция мыши</param>
         public void MouseUp(Point mousePos)
         {
-            if (MovingRectangle)
-            {
-                MovingRectangle = false;
-                if (SelectedRectangle != null)
-                {
-                    SelectedRectangle.Move(mousePos.X, mousePos.Y);
-                    OnPropertyChanged("Geometry");
-                }
-            }
+            if (!MovingRectangle) return;
+            MovingRectangle = false;
+            SelectedRectangle?.Move(mousePos.X, mousePos.Y);
         }
-
-        public RectangleGeometry Geometry { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Rectangulation
@@ -21,7 +22,7 @@ namespace Rectangulation
             var rectangles = vmodel.Rectangles;
             if ((vmodel.Polygons.Count > 0) && (vmodel.CurrentPolygon == null))
             {
-                Rectangulation(vmodel.Rectangles, vmodel.RectWidth, vmodel.RectHeight);
+                Rectangulation(vmodel.Rectangles, vmodel.Polygons, vmodel.RectWidth, vmodel.RectHeight);
             }
         }
 
@@ -36,16 +37,23 @@ namespace Rectangulation
         /// <param name="rectangles">коллекция прямоугольников</param>
         /// <param name="width">ширина прямоугольников</param>
         /// <param name="height">высота прямоугольников</param>
-        private void Rectangulation(ObservableCollection<RectangleVM> rectangles, int width, int height)
+        private void Rectangulation(ObservableCollection<RectangleVM> rectangles, ObservableCollection<PolygonVM>  polygons, int width, int height)
         {
             if (rectangles.Count == 0)
             {
-                var x = 100;
-                var y = 100;
-                for (var i = 0; i < 5; i++)
+                var rand = new Random();
+                foreach (var polygon in polygons)
                 {
-                    var rectangle = new Rectangle(x += 25, y += 25, width, height);
-                    rectangles.Add(new RectangleVM(rectangle));
+                    var countRect = (int) (polygon.Square() / (width * height));
+                    for (var i = 0; i < countRect + 1; i++)
+                    {
+                        var rectangle =
+                            new Rectangle(
+                                rand.Next((int) polygon.Geometry.Bounds.Left, (int) polygon.Geometry.Bounds.Right - width),
+                                rand.Next((int) polygon.Geometry.Bounds.Top, (int) polygon.Geometry.Bounds.Bottom - height),
+                                width, height);
+                        rectangles.Add(new RectangleVM(rectangle));
+                    }
                 }
             }
             else
@@ -60,5 +68,7 @@ namespace Rectangulation
                     }
             }
         }
+
+        
     }
 }

@@ -14,11 +14,11 @@ namespace Rectangulation.Commands
 
         public void Execute(object parameter)
         {
-            var parameterVM = (MainWindowVM)parameter;
-            parameterVM.DrawingPoligons = true;
-            parameterVM.Rectangles.Clear();
-            parameterVM.Polygons.Clear();
-            parameterVM.CurrentPolygon = null;
+            var vmodel = (MainWindowVM)parameter;
+            vmodel.DrawingPoligons = true;
+            vmodel.Rectangles.Clear();
+            vmodel.Polygons.Clear();
+            vmodel.CurrentPolygon = null;
         }
 
         public bool CanExecute(object parameter)

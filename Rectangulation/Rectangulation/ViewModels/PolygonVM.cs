@@ -76,12 +76,13 @@ namespace Rectangulation
                 return;
             var segment = (PolyLineSegment)figure.Segments[0];
             segment?.Points.Add(figure.StartPoint);
+            Polygon.AddPoint(figure.StartPoint.X, figure.StartPoint.Y);
         }
 
         /// <summary>
         /// Метод получения фигуры
         /// </summary>
-        /// <returns>ссылку на фигуру</returns>
+        /// <returns>Ссылка на фигуру</returns>
         private PathFigure GetFigure()
         {
             if (Geometry == null)
@@ -91,5 +92,20 @@ namespace Rectangulation
                 return null;
             return (PathFigure)pathGeom.Figures[0];
         }
+
+        /// <summary>
+        /// Метод, вычисляющий площадь полигона
+        /// </summary>
+        /// <returns>Площадь</returns>
+        public double Square()
+        {
+            double s = 0;
+            for (var i = 0; i < Polygon.Points.Count - 1; i++)
+            {
+                s += 0.5 * (Polygon.Points[i].X * Polygon.Points[i + 1].Y -
+                            Polygon.Points[i].Y * Polygon.Points[i + 1].X);
+            }
+            return Math.Abs(s);
+        } 
     }
 }

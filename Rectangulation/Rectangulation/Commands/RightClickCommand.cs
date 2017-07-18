@@ -31,7 +31,12 @@ namespace Rectangulation.Commands
         /// </summary>
         public void ClosePolygon(MainWindowVM vmodel)
         {
-            if (vmodel.CurrentPolygon.Polygon.Points.Count < 3) return;
+            if (vmodel.CurrentPolygon.Polygon.Points.Count < 3)
+            {
+                vmodel.Polygons.Remove(vmodel.CurrentPolygon);
+                vmodel.CurrentPolygon = null;
+                return;
+            }
             vmodel.CurrentPolygon.Close();
             vmodel.CurrentPolygon = null;
             vmodel.OnPropertyChanged();

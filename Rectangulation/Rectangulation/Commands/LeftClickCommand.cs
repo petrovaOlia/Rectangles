@@ -56,12 +56,10 @@ namespace Rectangulation.Commands
         {
             foreach (var rectangle in vmodel.Rectangles)
             {
-                if (rectangle.HitToBorder(x, y))
-                {
-                    vmodel.SelectedRectangle = null;
-                    vmodel.SelectedRectangle = rectangle;
-                    return true;
-                }
+                if (!rectangle.HitToBorder(x, y)) continue;
+                vmodel.SelectedRectangle = null;
+                vmodel.SelectedRectangle = rectangle;
+                return true;
             }
             return false;
         }
