@@ -1,18 +1,46 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using Rectangulation.Commands;
-using Rectangulation.ViewModels;
-
-namespace Rectangulation
+﻿namespace Rectangulation.ViewModels
 {
+    using System.Collections.ObjectModel;
+    using System.Windows;
+    using System.Windows.Data;
+    using Rectangulation.Commands;
+
+    /// <summary>
+    /// Представление главного окна
+    /// </summary>
     class MainWindowVM : ViewModel
     {
+        /// <summary>
+        /// Выделенный прямоугольник
+        /// </summary>
+        private RectangleVM _selectedRectangleVM;
+
+        /// <summary>
+        /// Конструктор MainWindowVM
+        /// </summary>
+        public MainWindowVM()
+        {
+            RectangulationCommand = new RectangulationCommand();
+            ClearCommand = new ClearCommand();
+            LeftClickCommand = new LeftClickCommand();
+            RightClickCommand = new RightClickCommand();
+
+            Shapes = new CompositeCollection();
+            Polygons = new ObservableCollection<PolygonVM>();
+            Rectangles = new ObservableCollection<RectangleVM>();
+
+            var polygonContainer = new CollectionContainer { Collection = Polygons };
+            Shapes.Add(polygonContainer);
+
+            var rectangleContainer = new CollectionContainer { Collection = Rectangles };
+            Shapes.Add(rectangleContainer);
+
+            CurrentPolygon = null;
+            RectWidth = 20;
+            RectHeight = 20;
+            SelectedRectangleVM = null;
+        }
+
         /// <summary>
         /// Коллекция полигонов
         /// </summary>
@@ -29,46 +57,36 @@ namespace Rectangulation
         public PolygonVM CurrentPolygon { get; set; }
 
         /// <summary>
-        /// Выделенный прямоугольник
-        /// </summary>
-        private RectangleVM _selectedRectangle;
-
-        /// <summary>
         /// Свойство выделенного прямоугольника
         /// </summary>
-        public RectangleVM SelectedRectangle
+        public RectangleVM SelectedRectangleVM
         {
-            get { return _selectedRectangle; }
+            get { return _selectedRectangleVM; }
             set
             {
-                if (_selectedRectangle != null)
-                    _selectedRectangle.Selected = false;
-                _selectedRectangle = value;
-                if (_selectedRectangle != null)
-                    _selectedRectangle.Selected = true;
-                OnPropertyChanged("SelectedRectangle");
+                if (_selectedRectangleVM != null)
+                    _selectedRectangleVM.Selected = false;
+                _selectedRectangleVM = value;
+                if (_selectedRectangleVM != null)
+                    _selectedRectangleVM.Selected = true;
+                OnPropertyChanged("SelectedRectangleVM");
             }
         }
 
         /// <summary>
-        /// Свойство коллекция фигур
+        /// Свойство коллекции фигур
         /// </summary>
         public CompositeCollection Shapes { get; private set; }
 
         /// <summary>
-        /// Ширина прямоугольника
+        /// Свойство ширины прямоугольника
         /// </summary>
         public int RectWidth { get; set; }
 
         /// <summary>
-        /// Высота прямоугольника
+        /// Свойство высоты прямоугольника
         /// </summary>
         public int RectHeight { get; set; }
-
-        /// <summary>
-        /// Свойство, определяющие возможность рисования полигона
-        /// </summary>
-        public bool DrawingPoligons { get; set; }
 
         /// <summary>
         /// Команда нажатия левой кнопки мыши
@@ -91,36 +109,14 @@ namespace Rectangulation
         public ClearCommand ClearCommand { get; }
 
         /// <summary>
-        /// Конструктор MainWindowVM
-        /// </summary>
-        public MainWindowVM()
-        {
-            RectangulationCommand = new RectangulationCommand();
-            ClearCommand = new ClearCommand();
-            LeftClickCommand = new LeftClickCommand();
-            RightClickCommand = new RightClickCommand();
-
-            Shapes = new CompositeCollection();
-            Polygons = new ObservableCollection<PolygonVM>();
-            Rectangles = new ObservableCollection<RectangleVM>();
-
-            var polygonContainer = new CollectionContainer {Collection = Polygons};
-            Shapes.Add(polygonContainer);
-
-            var rectangleContainer = new CollectionContainer {Collection = Rectangles};
-            Shapes.Add(rectangleContainer);
-
-            CurrentPolygon = null;
-            RectWidth = 20;
-            RectHeight = 20;
-            SelectedRectangle = null;
-            DrawingPoligons = true;
-        }
-
-        /// <summary>
         /// Свойство, определяющие перемещение прямоугольника
         /// </summary>
         private bool MovingRectangle { get; set; } = false;
+
+        /// <summary>
+        /// Разница между позицией нажатия мыши и позицией прямоугольника
+        /// </summary>
+        private Point MouseDownPos { get; set; }
 
         /// <summary>
         /// Метод нажатия мыши
@@ -130,12 +126,12 @@ namespace Rectangulation
         {
             foreach (var rectangle in Rectangles)
             {
-                if (rectangle.HitToBorder(mousePos.X, mousePos.Y))
-                {
-                    SelectedRectangle = rectangle;
-                    MovingRectangle = true;
-                    return;
-                }
+                if (!rectangle.IsHitingToBorder(mousePos.X, mousePos.Y)) continue;
+                MouseDownPos = new Point(rectangle.Geometry.Bounds.X - mousePos.X,
+                    rectangle.Geometry.Bounds.Y - mousePos.Y);
+                SelectedRectangleVM = rectangle;
+                MovingRectangle = true;
+                return;
             }
         }
         /// <summary>
@@ -144,9 +140,9 @@ namespace Rectangulation
         /// <param name="mousePos">Позиция мыши</param>
         public void MouseMove(Point mousePos)
         {
-            if ((SelectedRectangle != null) && (MovingRectangle))
+            if ((SelectedRectangleVM != null) && (MovingRectangle))
             {
-                SelectedRectangle.Move(mousePos.X, mousePos.Y);
+                SelectedRectangleVM.Move(mousePos.X + MouseDownPos.X, mousePos.Y + MouseDownPos.Y);
             }
         }
 
@@ -158,7 +154,7 @@ namespace Rectangulation
         {
             if (!MovingRectangle) return;
             MovingRectangle = false;
-            SelectedRectangle?.Move(mousePos.X, mousePos.Y);
+            SelectedRectangleVM?.Move(mousePos.X + MouseDownPos.X, mousePos.Y + MouseDownPos.Y);
         }
     }
 }

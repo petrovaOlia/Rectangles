@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-
-namespace Rectangulation
+﻿namespace Rectangulation.Commands
 {
-    class RectangulationCommand : ICommand
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows.Input;
+    using Rectangulation.ViewModels;
+    using Rectangulation.Models;
+
+    /// <summary>
+    /// Команда нажатия кнопки Ректангулировать
+    /// </summary>
+    internal class RectangulationCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         
@@ -35,9 +34,10 @@ namespace Rectangulation
         /// Метод ректангуляции
         /// </summary>
         /// <param name="rectangles">коллекция прямоугольников</param>
+        /// <param name="polygons">коллекция полигонов</param>
         /// <param name="width">ширина прямоугольников</param>
         /// <param name="height">высота прямоугольников</param>
-        private void Rectangulation(ObservableCollection<RectangleVM> rectangles, ObservableCollection<PolygonVM>  polygons, int width, int height)
+        private static void Rectangulation(ObservableCollection<RectangleVM> rectangles, ObservableCollection<PolygonVM>  polygons, int width, int height)
         {
             if (rectangles.Count == 0)
             {

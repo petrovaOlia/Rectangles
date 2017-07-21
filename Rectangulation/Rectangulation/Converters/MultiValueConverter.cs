@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-
-namespace Rectangulation
+﻿namespace Rectangulation.Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Windows.Data;
+
+    /// <summary>
+    /// Конвертер параметров, передаваемых в команды
+    /// </summary>
     public class MultiValueConverter : IMultiValueConverter
     {
         object IMultiValueConverter.Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

@@ -1,38 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-
-namespace Rectangulation
+﻿namespace Rectangulation.ViewModels
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Media;
+    using Rectangulation.Models;
+
+    /// <summary>
+    /// Представление модели полигона
+    /// </summary>
     class PolygonVM : BaseShapeVM
     {
-        /// <summary>
-        /// Полигон
-        /// </summary>
-        public Polygon Polygon { get; }
-
-        /// <summary>
-        /// Свойство кисть заливки
-        /// </summary>
-        public override Brush Fill => Polygon.Fill;
-
-        /// <summary>
-        /// Свойство кисть контура
-        /// </summary>
-        public override Brush Stroke => Polygon.Stroke;
-
-        /// <summary>
-        /// Свойство толщина линии
-        /// </summary>
-        public override double StrokeThickness => Polygon.StrokeThickness;
-
         /// <summary>
         /// Конструктор полигона
         /// </summary>
@@ -44,12 +21,32 @@ namespace Rectangulation
             Polygon.AddPoint(x, y);
 
             var pathGeom = new PathGeometry();
-            var segment = new PolyLineSegment {Points = new PointCollection()};
-            var figure = new PathFigure {StartPoint = new Point(x, y)};
+            var segment = new PolyLineSegment { Points = new PointCollection() };
+            var figure = new PathFigure { StartPoint = new Point(x, y) };
             figure.Segments.Add(segment);
             pathGeom.Figures.Add(figure);
             Geometry = pathGeom;
         }
+
+        /// <summary>
+        /// Полигон
+        /// </summary>
+        public Polygon Polygon { get; }
+
+        /// <summary>
+        /// Свойство кисть заливки
+        /// </summary>
+        public override Brush Fill => Brushes.Transparent;
+
+        /// <summary>
+        /// Свойство кисть контура
+        /// </summary>
+        public override Brush Stroke => Brushes.Blue;
+
+        /// <summary>
+        /// Свойство толщина линии
+        /// </summary>
+        public override double StrokeThickness => 2;
 
         /// <summary>
         /// Метод добавления точки в полигон
@@ -58,12 +55,9 @@ namespace Rectangulation
         /// <param name="y">Координата Y точки</param>
         public void AddPoint(double x, double y)
         {
-            Polygon.AddPoint(x, y);
-            var figure = GetFigure();
-            if (figure.Segments.Count <= 0)
-                return;
-            var segment = (PolyLineSegment)figure.Segments[0];
+            var segment = GetSegment(GetFigure());
             segment.Points.Add(new Point(x, y));
+            Polygon.AddPoint(x, y);
         }
 
         /// <summary>
@@ -72,9 +66,7 @@ namespace Rectangulation
         public void Close()
         {
             var figure = GetFigure();
-            if (figure.Segments.Count <= 0)
-                return;
-            var segment = (PolyLineSegment)figure.Segments[0];
+            var segment = GetSegment(figure);
             segment?.Points.Add(figure.StartPoint);
             Polygon.AddPoint(figure.StartPoint.X, figure.StartPoint.Y);
         }
@@ -91,6 +83,18 @@ namespace Rectangulation
             if (pathGeom.Figures.Count <= 0)
                 return null;
             return (PathFigure)pathGeom.Figures[0];
+        }
+
+        /// <summary>
+        /// Метод получения сегмента
+        /// </summary>
+        /// <param name="figure">Фигура</param>
+        /// <returns>Сегмент</returns>
+        private static PolyLineSegment GetSegment(PathFigure figure)
+        {
+            if (figure.Segments.Count <= 0)
+                return null;
+            return (PolyLineSegment)figure.Segments[0];
         }
 
         /// <summary>

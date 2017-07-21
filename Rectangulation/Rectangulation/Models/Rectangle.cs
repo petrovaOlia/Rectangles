@@ -1,59 +1,49 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Media;
-
-namespace Rectangulation
+﻿namespace Rectangulation.Models
 {
+    using System.Windows;
+    using System.Windows.Media;
+
+    /// <summary>
+    /// Модель прямоугольника
+    /// </summary>
     public class Rectangle
     {
-        public Rect Rect;
-
         /// <summary>
-        /// Координата X левого правого угла прямоугольника
+        /// Конструктор прямоугольника
         /// </summary>
-        public double X
+        /// <param name="x">Координата X левого правого угла прямоугольника</param>
+        /// <param name="y">Координата Y левого правого угла прямоугольника</param>
+        /// <param name="width">Ширина прямоугольника</param>
+        /// <param name="height">Высота прямоугольника</param>
+        public Rectangle(double x, double y, int width, int height)
         {
-            get { return Rect.X; }
-            set { Rect.X = value; }
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+            Id = LastId;
+            LastId = LastId + 1;
         }
 
         /// <summary>
-        ///  Координата Y левого правого угла прямоугольника
+        /// Координата X левого верхнего угла прямоугольника
         /// </summary>
-        public double Y
-        {
-            get { return Rect.Y; }
-            set { Rect.Y = value; }
-        }
+        public double X { get; set; }
+
+        /// <summary>
+        ///  Координата Y левого верхнего угла прямоугольника
+        /// </summary>
+        public double Y { get; set; }
 
         /// <summary>
         /// Ширина прямоугольника
         /// </summary>
-        public double Width
-        {
-            get { return Rect.Width; }
-            set { Rect.Width = value; }
-        }
+        public double Width { get; set; }
 
         /// <summary>
         /// Высота прямоугольника
         /// </summary>
-        public double Height
-        {
-            get { return Rect.Height; }
-            set { Rect.Height = value; }
-        }
-
-        /// <summary>
-        /// Свойство кисть заливки
-        /// </summary>
-        public Brush Fill { get; set; }
-
-        /// <summary>
-        /// Свойство кисть контура
-        /// </summary>
-        public Brush Stroke { get; set; }
+        public double Height { get; set; }
 
         /// <summary>
         /// Свойство нумерации прямоугольника
@@ -66,27 +56,12 @@ namespace Rectangulation
         public static int LastId { get; set; } = 1;
 
         /// <summary>
-        /// Конструктор прямоугольника
-        /// </summary>
-        /// <param name="x">Координата X левого правого угла прямоугольника</param>
-        /// <param name="y">Координата Y левого правого угла прямоугольника</param>
-        /// <param name="width">Ширина прямоугольника</param>
-        /// <param name="height">Высота прямоугольника</param>
-        public Rectangle(double x, double y, int width, int height)
-        {
-            Rect = new Rect(x, y, width, height);
-            Fill = Brushes.Black;
-            Id = LastId;
-            LastId = LastId + 1;
-        }
-
-        /// <summary>
         /// Метод, определяющий попадание в границы прямоугольника
         /// </summary>
         /// <param name="x">Координата X нажатия левой кнопки мыши</param>
         /// <param name="y">Координата Y нажатия левой кнопки мыши</param>
         /// <returns>Возвращает true, если клик рядом с границей</returns>
-        public bool HitToBorder(double x, double y)
+        public bool IsHitingToBorder(double x, double y)
         {
             return ((x >= X - 2) &&
                     (y >= Y - 2) &&

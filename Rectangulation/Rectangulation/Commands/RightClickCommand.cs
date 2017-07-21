@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-
-namespace Rectangulation.Commands
+﻿namespace Rectangulation.Commands
 {
-    class RightClickCommand : ICommand
+    using System;
+    using System.Windows.Input;
+    using Rectangulation.ViewModels;
+
+    /// <summary>
+    /// Команда нажатия правой кнопки мыши на канве
+    /// </summary>
+    internal class RightClickCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
         public void Execute(object parameter)
         {
-            var values = (object[])parameter;
-            var canvas = (Canvas)values[0] ;
-            var vmodel = (MainWindowVM)values[1];
-            if ((vmodel.CurrentPolygon != null) && (vmodel.DrawingPoligons))
+            var vmodel = (MainWindowVM)parameter;
+            if (vmodel.CurrentPolygon != null)
                 ClosePolygon(vmodel);
         }
 
@@ -25,11 +22,12 @@ namespace Rectangulation.Commands
         {
             return true;
         }
-        
+
         /// <summary>
         /// Метод замыкания полигона
         /// </summary>
-        public void ClosePolygon(MainWindowVM vmodel)
+        /// <param name="vmodel">Экземляр MainWindowVM</param>
+        private static void ClosePolygon(MainWindowVM vmodel)
         {
             if (vmodel.CurrentPolygon.Polygon.Points.Count < 3)
             {

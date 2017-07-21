@@ -1,43 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
-using System.Windows.Media;
-
-namespace Rectangulation
+﻿namespace Rectangulation.Models
 {
+    using System.Collections.Generic;
+    using System.Windows;
+
+    /// <summary>
+    /// Модель полигона
+    /// </summary>
     public class Polygon 
     {
-        /// <summary>
-        /// Лист точек полигона
-        /// </summary>
-        public List<Point> Points { get; }
-
-        /// <summary>
-        /// Свойство кисть заливки
-        /// </summary>
-        public Brush Fill { get; set; }
-
-        /// <summary>
-        /// Свойство кисть контура
-        /// </summary>
-        public Brush Stroke { get; set; }
-
-        /// <summary>
-        /// Свойство толщина линии
-        /// </summary>
-        public double StrokeThickness { get; set; }
-
         /// <summary>
         /// Конструктор полигона
         /// </summary>
         public Polygon()
         {
             Points = new List<Point>();
-            Fill = Brushes.Transparent;
-            Stroke = Brushes.Blue;
-            StrokeThickness = 2;
         }
+
+        /// <summary>
+        /// Лист точек полигона
+        /// </summary>
+        public List<Point> Points { get; }
 
         ///// <summary>
         ///// Метод добавления точки в полигон

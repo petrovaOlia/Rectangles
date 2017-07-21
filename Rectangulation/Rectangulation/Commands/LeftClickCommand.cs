@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
-namespace Rectangulation.Commands
+﻿namespace Rectangulation.Commands
 {
-    class LeftClickCommand : ICommand
+    using System;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using Rectangulation.ViewModels;
+
+    /// <summary>
+    /// Команда нажатия левой кнопки мыши на канвас
+    /// </summary>
+    internal class LeftClickCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -28,12 +27,13 @@ namespace Rectangulation.Commands
             return true;
         }
 
-        /// <summary>
+        //// <summary>
         /// Метод добавления точки в полигон
         /// </summary>
         /// <param name="x">Координата X точки</param>
         /// <param name="y">Координата Y точки</param>
-        private void AddPointToPolygon(double x, double y, MainWindowVM vmodel)
+        /// <param name="vmodel">Экземляр MainWindowVM</param>
+        private static void AddPointToPolygon(double x, double y, MainWindowVM vmodel)
         {
             if (vmodel.CurrentPolygon == null)
             {
@@ -43,7 +43,7 @@ namespace Rectangulation.Commands
             else
                 vmodel.CurrentPolygon.AddPoint(x, y);
             vmodel.OnPropertyChanged();
-            vmodel.SelectedRectangle = null;
+            vmodel.SelectedRectangleVM = null;
         }
 
         /// <summary>
@@ -52,13 +52,13 @@ namespace Rectangulation.Commands
         /// <param name="x">Координата X нажатия левой кнопки мыши</param>
         /// <param name="y">Координата Y нажатия левой кнопки мыши</param>
         /// <param name="vmodel">Экземляр MainWindowVM</param>
-        private bool TrySelectRectangle(double x, double y, MainWindowVM vmodel)
+        private static bool TrySelectRectangle(double x, double y, MainWindowVM vmodel)
         {
             foreach (var rectangle in vmodel.Rectangles)
             {
-                if (!rectangle.HitToBorder(x, y)) continue;
-                vmodel.SelectedRectangle = null;
-                vmodel.SelectedRectangle = rectangle;
+                if (!rectangle.IsHitingToBorder(x, y)) continue;
+                vmodel.SelectedRectangleVM = null;
+                vmodel.SelectedRectangleVM = rectangle;
                 return true;
             }
             return false;
