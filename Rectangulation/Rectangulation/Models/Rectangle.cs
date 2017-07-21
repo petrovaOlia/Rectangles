@@ -1,7 +1,5 @@
 ﻿namespace Rectangulation.Models
 {
-    using System.Windows;
-    using System.Windows.Media;
 
     /// <summary>
     /// Модель прямоугольника
@@ -38,17 +36,17 @@
         /// <summary>
         /// Ширина прямоугольника
         /// </summary>
-        public double Width { get; set; }
+        public double Width { get; private set; }
 
         /// <summary>
         /// Высота прямоугольника
         /// </summary>
-        public double Height { get; set; }
+        public double Height { get; private set; }
 
         /// <summary>
         /// Свойство нумерации прямоугольника
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
         /// <summary>
         /// Свойство последнего номера в списоке прямоугольника

@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectangulation"
         xmlns:converters="clr-namespace:Rectangulation.Converters"
+        xmlns:viewModels="clr-namespace:Rectangulation.ViewModels"
         mc:Ignorable="d"
         Title="Ректангуляция" Height="350" Width="525" MinHeight="350" MinWidth="525"
-        d:DataContext="{d:DesignInstance local:MainWindow}">
+        d:DataContext="{d:DesignInstance viewModels:MainWindowVM}">
     <Window.Resources>
         <converters:MultiValueConverter x:Key="MultiValueConverter" />
     </Window.Resources>

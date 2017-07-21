@@ -82,6 +82,11 @@
             return Rectangle.IsHitingToBorder(x, y);
         }
 
+        /// <summary>
+        /// Изменения позиции прямоугольника
+        /// </summary>
+        /// <param name="x">Координта x</param>
+        /// <param name="y">Координта y</param>
         public void Move(double x, double y)
         {
             Rectangle.Y = y;

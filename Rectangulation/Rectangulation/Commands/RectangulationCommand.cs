@@ -18,7 +18,6 @@
             Rectangle.LastId = 1;
 
             var vmodel = (MainWindowVM)parameter;
-            var rectangles = vmodel.Rectangles;
             if ((vmodel.Polygons.Count > 0) && (vmodel.CurrentPolygon == null))
             {
                 Rectangulation(vmodel.Rectangles, vmodel.Polygons, vmodel.RectWidth, vmodel.RectHeight);
