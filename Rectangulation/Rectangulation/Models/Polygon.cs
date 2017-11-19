@@ -28,7 +28,7 @@
         ///// <param name="y">Координата Y точки</param>
         public void AddPoint(double x, double y)
         {
-            Points.Add(new Point(x, y));
+            Points.Add(new Point((int)x, (int)y));
         }
     }
 }

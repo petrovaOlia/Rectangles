@@ -56,7 +56,7 @@
         public void AddPoint(double x, double y)
         {
             var segment = GetSegment(GetFigure());
-            segment.Points.Add(new Point(x, y));
+            segment.Points.Add(new Point((int)x, (int)y));
             Polygon.AddPoint(x, y);
         }
 

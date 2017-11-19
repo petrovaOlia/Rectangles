@@ -10,6 +10,7 @@ namespace UnitTests
         [TestMethod]
         public void HitToBordersTest()
         {
+            
             var rect = new Rectangle(10, 10, 20, 20);
 
             //Углы прямоугольника
