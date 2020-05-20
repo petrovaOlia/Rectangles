@@ -22,6 +22,7 @@
         {
             Rectangle = rectangle;
             Geometry = new RectangleGeometry(new Rect(Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height));
+            Checked = true;
         }
 
         /// <summary>
@@ -52,7 +53,7 @@
         /// <summary>
         /// Свойство толщина линии
         /// </summary>
-        public override double StrokeThickness => 1;
+        public override double StrokeThickness => 2;
 
         /// <summary>
         /// Свойство, определяющие выделение цветом прямоугольника
