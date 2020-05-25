@@ -8,6 +8,8 @@
     /// </summary>
     public class Polygon 
     {
+        //Коммент
+
         /// <summary>
         /// Конструктор полигона
         /// </summary>
