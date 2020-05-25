@@ -95,5 +95,7 @@
             Geometry = new RectangleGeometry(new Rect(x, y, Rectangle.Width, Rectangle.Height));
             OnPropertyChanged("Geometry");
         }
+
+        //Комментарий
     }
 }
