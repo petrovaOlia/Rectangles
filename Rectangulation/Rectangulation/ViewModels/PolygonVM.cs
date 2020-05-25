@@ -110,6 +110,8 @@
                             Polygon.Points[i].Y * Polygon.Points[i + 1].X);
             }
             return Math.Abs(s);
-        } 
+        }
+
+        //Комментарий
     }
 }
