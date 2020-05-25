@@ -6,6 +6,8 @@
     /// </summary>
     public class Rectangle
     {
+        //Комментарий
+
         /// <summary>
         /// Конструктор прямоугольника
         /// </summary>
