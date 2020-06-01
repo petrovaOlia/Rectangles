@@ -33,6 +33,6 @@
             Points.Add(new Point((int)x, (int)y));
         }
 
-        //Коммент
+        //dev
     }
 }
