@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Windows;
 
-    //мастер2
+    //мастер1
     /// <summary>
     /// Модель полигона
     /// </summary>
